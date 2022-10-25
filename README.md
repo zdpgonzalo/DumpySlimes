@@ -6,12 +6,12 @@ Existirán distintos modos de juego, en los que se controlará a un slime que po
 Los jugadores también podrán usar distintos power-ups para imponerse sobre sus rivales.
 
 ## Integrantes
-Cécile Laura Bello Duprez / Correo: cl.bello.2020@alumnos.urjc.es / Cuenta: clbello
-Christian Campos Pan / Correo: c.campos.2020@alumnos.urjc.es / Cuenta: Ubermewtwo
-Gonzalo Gómez Tejedor / Correo: g.gomezt.2020@alumnos.urjc.es / Cuenta: zdpgonzalo
-Umesh Mostajo Sáez / Correo: u.mostajo.2020@alumnos.urjc.es / Cuenta: umeshmostajo
-Paula Rojo de la Fuente / p.rojo.2020@alumnos.urjc.es / Cuenta: PaulaRojo
-Eva Sanz García-Muro /e.sanzg.2020@alumnos.urjc.es / Cuenta: JustV3x 
+Cécile Laura Bello Duprez / Correo: cl.bello.2020@alumnos.urjc.es / Cuenta: clbello <br />
+Christian Campos Pan / Correo: c.campos.2020@alumnos.urjc.es / Cuenta: Ubermewtwo <br />
+Gonzalo Gómez Tejedor / Correo: g.gomezt.2020@alumnos.urjc.es / Cuenta: zdpgonzalo <br />
+Umesh Mostajo Sáez / Correo: u.mostajo.2020@alumnos.urjc.es / Cuenta: umeshmostajo <br />
+Paula Rojo de la Fuente / p.rojo.2020@alumnos.urjc.es / Cuenta: PaulaRojo <br />
+Eva Sanz García-Muro /e.sanzg.2020@alumnos.urjc.es / Cuenta: JustV3x <br />
 
 ## Trello
 https://trello.com/b/2rsKGfLB/jergrupo-c
