@@ -10,8 +10,8 @@ Cécile Laura Bello Duprez / Correo: cl.bello.2020@alumnos.urjc.es / Cuenta: clb
 Christian Campos Pan / Correo: c.campos.2020@alumnos.urjc.es / Cuenta: Ubermewtwo <br />
 Gonzalo Gómez Tejedor / Correo: g.gomezt.2020@alumnos.urjc.es / Cuenta: zdpgonzalo <br />
 Umesh Mostajo Sáez / Correo: u.mostajo.2020@alumnos.urjc.es / Cuenta: Miles766 <br />
-Paula Rojo de la Fuente / p.rojo.2020@alumnos.urjc.es / Cuenta: PaulaRojo <br />
-Eva Sanz García-Muro /e.sanzg.2020@alumnos.urjc.es / Cuenta: JustV3x <br />
+Paula Rojo de la Fuente / Correo: p.rojo.2020@alumnos.urjc.es / Cuenta: PaulaRojo <br />
+Eva Sanz García-Muro /Correo: e.sanzg.2020@alumnos.urjc.es / Cuenta: JustV3x <br />
 
 ## Trello
 https://trello.com/b/2rsKGfLB/jergrupo-c
