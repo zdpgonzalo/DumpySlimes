@@ -1,4 +1,4 @@
-function resizeApp()
+function resizeApp()//NO TOCAR POR LO QUE MÁS QUERÁIS NI SIQUIERA YO SÉ CÓMO FUNCIONA
 {
     'use strict';
 
@@ -27,11 +27,11 @@ function runApp()
 {
     'use strict';
 
-    //Init the Phaser game app
+    //Inicia la aplicación de Phaser
     let app = new App();
     app.start();
 
-    //Scale to device
+    //Escalar al tamaño de ventana
     window.addEventListener('resize', resizeApp);
     resizeApp();
 }
@@ -40,6 +40,6 @@ window.onload = function()
 {
     'use strict';
     
-    //Launch the game
+    //Lanzar el juego
     runApp();
 }
