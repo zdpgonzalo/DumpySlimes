@@ -33,100 +33,24 @@ class Play extends Phaser.Scene
         map.setCollisionBetween(0, 97);
         this.physics.world.TILE_BIAS = 32;
 
-        //Creación de los jugadores
+        //Creación de los jugadores y sus controles
         let players = this.add.group({
             classType: Player,
             maxSize: 4,
             runChildUpdate: true
         });
 
-        this.player1 = new Player(this, 100, 450, 'star', players);
-        this.player2 = new Player(this, 700, 450, 'star', players);
+        let keys = Phaser.Input.Keyboard.KeyCodes;
+        let wasd = this.input.keyboard.addKeys({'up': keys.UP, 'down': keys.DOWN, 'left': keys.LEFT, 'right': keys.RIGHT});
+        let cursors = this.input.keyboard.addKeys({'up': keys.W, 'down': keys.S, 'left': keys.A, 'right': keys.D});
 
-        //Configurar controles
-        this.cursors = this.input.keyboard.createCursorKeys();
-        this.wasd = this.input.keyboard.addKeys("W,A,S,D");
-
-        //Colliders
-        this.physics.add.collider(players, players, function(player1, player2) {
-            player1.setVelocityX(player1.body.velocity.x * 2.5);
-            player1.setVelocityY(player1.body.velocity.y * 2.5);
-            player1.canJump = true;
-            player2.setVelocityX(player2.body.velocity.x * 2.5);
-            player2.setVelocityY(player2.body.velocity.y * 2.5);
-            player2.canJump = true;
-        });
+        this.player1 = new Player(this, 100, 450, 'star', players, ground, wasd);
+        this.player2 = new Player(this, 700, 450, 'star', players, ground, cursors);
     }
 
     update(time, delta)
     {
-        //player1
-        if(this.cursors.left.isDown)
-        {
-            if (this.player1.body.velocity.x > -300)
-            {
-                this.player1.body.velocity.x += -0.7 * delta;
-            }
-        }
-        if(this.cursors.right.isDown)
-        {
-            if (this.player1.body.velocity.x < 300)
-            {
-                this.player1.body.velocity.x += 0.7 * delta;
-            }
-        }
-        if(this.cursors.down.isDown)
-        {
-            if (this.player1.body.velocity.y < 300)
-            {
-                this.player1.body.velocity.y += 1 * delta;
-            }
-        }
-
-        if(Phaser.Input.Keyboard.JustDown(this.cursors.up) && this.player1.canJump)
-        {
-            this.player1.canJump = false;
-            this.player1.setVelocityY(-600);
-        }
-
-        if(this.key.SPACE.isDown && this.player1.powerups.getLength() != 0)
-        {
-            this.player1.usePowerup();
-        }
         
-        //player2
-        if(this.wasd.A.isDown)
-        {
-            if (this.player2.body.velocity.x > -300)
-            {
-                this.player2.body.velocity.x += -0.7 * delta;
-            }
-        }
-        if(this.wasd.D.isDown)
-        {
-            if (this.player2.body.velocity.x < 300)
-            {
-                this.player2.body.velocity.x += 0.7 * delta;
-            }
-        }
-        if(this.wasd.S.isDown)
-        {
-            if (this.player2.body.velocity.y < 300)
-            {
-                this.player2.body.velocity.y += 1 * delta;
-            }
-        }
-
-        if(Phaser.Input.Keyboard.JustDown(this.wasd.W) && this.player2.canJump)
-        {
-            this.player2.canJump = false;
-            this.player2.setVelocityY(-600);
-        }
-
-        if(this.key.ENTER.isDown && this.player2.powerups.getLength() != 0)
-        {
-            this.player2.usePowerup();
-        }
     }
 
     tmjToArray(array)
