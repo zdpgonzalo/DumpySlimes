@@ -27,7 +27,7 @@ class Preload extends Phaser.Scene
     {
         //Ir al menu
         this.time.addEvent({
-            delay: 1000,
+            delay: 500,
             callback: () => {this.scene.start('Menu');},
             callBackScope: this
         });
