@@ -1,5 +1,5 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, sprite, players, ground) 
+    constructor(scene, x, y, sprite, players, ground, controls) 
     {
         super(scene, x, y, sprite);
         scene.sys.updateList.add(this);
@@ -17,11 +17,23 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.activePowerup = 'none'; 
         this.powerups = [];
         this.maxPowerups = 2;
+        this.bounceForce = 2.5;
+        this.controls = controls;
+        this.maxSpeed = 600;
 
-        this.key = this.input.keyboard.addKeys("SPACE, ENTER");
+        this.key = scene.input.keyboard.addKeys("SPACE, ENTER");
 
         //Colliders
-        scene.physics.add.collider(this, ground);
+        this.playerCollider = scene.physics.add.collider(this, players, function(player1, player2) {
+            player1.setVelocityX(Math.min(player1.body.velocity.x * player1.bounceForce, player1.maxSpeed));
+            player1.setVelocityY(Math.min(player1.body.velocity.y * player1.bounceForce, player1.maxSpeed));
+            player1.canJump = true;
+            player2.setVelocityX(Math.min(player2.body.velocity.x * player2.bounceForce, player2.maxSpeed));
+            player2.setVelocityY(Math.min(player2.body.velocity.y * player2.bounceForce, player2.maxSpeed));
+            player2.canJump = true;
+        });
+
+        this.groundCollider = scene.physics.add.collider(this, ground);
     }
 
     update(time, delta)
@@ -41,6 +53,39 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         if (this.body.onFloor())
         {
             this.canJump = true;
+        }
+
+        if(this.controls.left.isDown)
+        {
+            if (this.body.velocity.x > -300)
+            {
+                this.body.velocity.x += -0.7 * delta;
+            }
+        }
+        if(this.controls.right.isDown)
+        {
+            if (this.body.velocity.x < 300)
+            {
+                this.body.velocity.x += 0.7 * delta;
+            }
+        }
+        if(this.controls.down.isDown)
+        {
+            if (this.body.velocity.y < 300)
+            {
+                this.body.velocity.y += 1 * delta;
+            }
+        }
+
+        if(Phaser.Input.Keyboard.JustDown(this.controls.up) && this.canJump)
+        {
+            this.canJump = false;
+            this.setVelocityY(-600);
+        }
+
+        if(this.key.SPACE.isDown && this.powerups.getLength() != 0)
+        {
+            this.usePowerup();
         }
     }
 
