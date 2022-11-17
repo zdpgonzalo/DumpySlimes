@@ -19,7 +19,7 @@ class Menu extends Phaser.Scene
     create()
     {
         let myScene = this;
-        //Título del juego
+        // Título del juego
         this.title = this.add.bitmapText(
             myScene.CONFIG.centerX, 
             150,
@@ -28,7 +28,7 @@ class Menu extends Phaser.Scene
             64
         ).setOrigin(0.5);
 
-        //Texto haz click para jugar
+        // Texto de haz click para jugar
         this.text = this.add.bitmapText(
             myScene.CONFIG.centerX, 
             myScene.CONFIG.centerY,
@@ -37,10 +37,10 @@ class Menu extends Phaser.Scene
             64
         ).setOrigin(0.5);
 
-        //Create mouse input
+        // Crear input del Ratón
         this.createMouseInput();
 
-        //Create keyboard input
+        // Crear input del Teclado
         this.createKeyboardInput();
     }
 

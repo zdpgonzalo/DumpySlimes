@@ -12,10 +12,10 @@ class Boot extends Phaser.Scene
 
     preload()
     {
-        //Bitmap para la fuente de texto de la escena preload...
-        //...ruta
+        // Bitmap para la fuente de texto de la escena preload
+        // Ruta
         this.load.setPath('assets/fonts');
-        //...archivos
+        // Archivos
         this.load.bitmapFont('click', 'click.png', 'click.xml');
     }
 
