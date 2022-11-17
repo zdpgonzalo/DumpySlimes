@@ -90,6 +90,11 @@ class Play extends Phaser.Scene
             this.player1.canJump = false;
             this.player1.setVelocityY(-600);
         }
+
+        if(this.key.SPACE.isDown && this.player1.powerups.getLength() != 0)
+        {
+            this.player1.usePowerup();
+        }
         
         //player2
         if(this.wasd.A.isDown)
@@ -118,6 +123,11 @@ class Play extends Phaser.Scene
         {
             this.player2.canJump = false;
             this.player2.setVelocityY(-600);
+        }
+
+        if(this.key.ENTER.isDown && this.player2.powerups.getLength() != 0)
+        {
+            this.player2.usePowerup();
         }
     }
 
