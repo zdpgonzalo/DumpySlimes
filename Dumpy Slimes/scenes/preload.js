@@ -17,9 +17,10 @@ class Preload extends Phaser.Scene
 
         //Spritesheets...
         //...ruta
-        this.load.setPath('assets/img');
+        this.load.setPath('assets');
         //...archivos
-        //this.load.spritesheet('name', 'filename', {frameWidth: 16, frameHeight: 16, endFrame: 4, margin: 1, spacing: 2});
+        this.load.image('tiles', 'tilesheets/sheet.png');
+        this.load.image('star', 'sprites/star.png');
     }
 
     create()

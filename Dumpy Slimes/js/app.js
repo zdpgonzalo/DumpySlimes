@@ -26,7 +26,15 @@ App.prototype.start = function()
         width: 640,
         height: 1280,
         scene: scenes,
-        backgroundColor: '0xF4CCA1'
+        backgroundColor: '0xF4CCA1',
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 1000 },
+                debug: true,
+                fps: 60
+            }
+        }
     };
 
     //Crear game app
