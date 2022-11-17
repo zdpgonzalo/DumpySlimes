@@ -10,17 +10,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setCircle(12);
         this.setBounce(0.7);
         this.setCollideWorldBounds(true);
-        this.canJump = true;
         players.add(this);
 
         //Atributos
+        this.canJump = true;
         this.activePowerup = 'none'; 
         this.powerups = [];
         this.maxPowerups = 2;
         this.bounceForce = 2.5;
         this.controls = controls;
         this.maxSpeed = 600;
-
         this.key = scene.input.keyboard.addKeys("SPACE, ENTER");
 
         //Colliders
@@ -83,7 +82,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             this.setVelocityY(-600);
         }
 
-        if(this.key.SPACE.isDown && this.powerups.getLength() != 0)
+        if(this.key.SPACE.isDown && this.powerups.length != 0)
         {
             this.usePowerup();
         }
@@ -93,7 +92,32 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     {
         var powerup = this.powerups[0];
 
-        powerup.use(this);
-        this.powerups.splice(0, 1);
+        switch(powerup)
+        {
+            case '01':
+                //this.powerups.splice(0, 1);
+                this.rocket(this);
+                break;
+        }
+    }
+
+    rocket(player)
+    {
+        player.activePowerup = this.id;
+        player.body.setAllowGravity(false);
+        player.setVelocityY(-700);
+        player.groundCollider.active = false;
+        player.setCollideWorldBounds(false);
+        player.bounceForce = 0;
+        //Player.setTexture('Rocket');
+        setTimeout(function()
+        { 
+            player.activePowerup = 'none';
+            player.body.setAllowGravity(true);
+            player.setVelocityY(-500);
+            player.groundCollider.active = true;
+            player.setCollideWorldBounds(true);
+            player.bounceForce = 2.5;
+        }, 5000);
     }
 }
