@@ -1,5 +1,5 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, sprite, group) 
+    constructor(scene, x, y, sprite, players, ground) 
     {
         super(scene, x, y, sprite);
         scene.sys.updateList.add(this);
@@ -11,17 +11,17 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setBounce(0.7);
         this.setCollideWorldBounds(true);
         this.canJump = true;
-        group.add(this);
+        players.add(this);
 
         //Atributos
         this.activePowerup = 'none'; 
-        this.powerups = this.add.group({
-            classType: Powerup,
-            maxSize: 2,
-            runChildUpdate: true
-        });
+        this.powerups = [];
+        this.maxPowerups = 2;
 
         this.key = this.input.keyboard.addKeys("SPACE, ENTER");
+
+        //Colliders
+        scene.physics.add.collider(this, ground);
     }
 
     update(time, delta)
@@ -42,18 +42,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         {
             this.canJump = true;
         }
-
-        if((this.key.SPACE.isDown || this.key.ENTER.isDown) && this.powerups.getLength() != 0)
-        {
-            this.usePowerup();
-        }
     }
 
     usePowerup()
     {
-        var powerup = this.powerups.get();
+        var powerup = this.powerups[0];
 
         powerup.use(this);
-        this.powerups.remove(powerup);
+        this.powerups.splice(0, 1);
     }
 }
