@@ -46,6 +46,8 @@ class Play extends Phaser.Scene
 
         this.player1 = new Player(this, 100, 450, 'star', players, ground, wasd);
         this.player2 = new Player(this, 700, 450, 'star', players, ground, cursors);
+
+        this.player1.powerups.push('01');
     }
 
     update(time, delta)
