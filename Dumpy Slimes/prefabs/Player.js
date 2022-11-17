@@ -12,6 +12,16 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setCollideWorldBounds(true);
         this.canJump = true;
         group.add(this);
+
+        //Atributos
+        this.activePowerup = 'none'; 
+        this.powerups = this.add.group({
+            classType: Powerup,
+            maxSize: 2,
+            runChildUpdate: true
+        });
+
+        this.key = this.input.keyboard.addKeys("SPACE, ENTER");
     }
 
     update(time, delta)
@@ -32,5 +42,18 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         {
             this.canJump = true;
         }
+
+        if((this.key.SPACE.isDown || this.key.ENTER.isDown) && this.powerups.getLength() != 0)
+        {
+            this.usePowerup();
+        }
+    }
+
+    usePowerup()
+    {
+        var powerup = this.powerups.get();
+
+        powerup.use(this);
+        this.powerups.remove(powerup);
     }
 }
