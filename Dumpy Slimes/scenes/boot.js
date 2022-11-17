@@ -3,7 +3,6 @@ class Boot extends Phaser.Scene
     constructor()
     {
         super({key: 'Boot', active: true});
-
     }
 
     init()

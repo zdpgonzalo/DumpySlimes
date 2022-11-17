@@ -19,7 +19,7 @@ class Menu extends Phaser.Scene
     create()
     {
         let myScene = this;
-        //Game tittle
+        //Título del juego
         this.title = this.add.bitmapText(
             myScene.CONFIG.centerX, 
             150,
@@ -28,7 +28,7 @@ class Menu extends Phaser.Scene
             64
         ).setOrigin(0.5);
 
-        //Click to play
+        //Texto haz click para jugar
         this.text = this.add.bitmapText(
             myScene.CONFIG.centerX, 
             myScene.CONFIG.centerY,

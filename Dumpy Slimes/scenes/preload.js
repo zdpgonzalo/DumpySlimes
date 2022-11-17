@@ -7,25 +7,24 @@ class Preload extends Phaser.Scene
 
     init()
     {
-        this.URL = this.sys.game.URL;
         this.CONFIG = this.sys.game.CONFIG;
     }
 
     preload()
     {
-        //Create loading bar
+        //Crear barra de carga
         this.createLoadingBar();
 
         //Spritesheets...
-        //...path
-        this.load.setPath(this.URL + 'assets/img');
-        //...files
+        //...ruta
+        this.load.setPath('assets/img');
+        //...archivos
         //this.load.spritesheet('name', 'filename', {frameWidth: 16, frameHeight: 16, endFrame: 4, margin: 1, spacing: 2});
     }
 
     create()
     {
-        //Go menu
+        //Ir al menu
         this.time.addEvent({
             delay: 1000,
             callback: () => {this.scene.start('Menu');},
@@ -36,53 +35,52 @@ class Preload extends Phaser.Scene
     createLoadingBar()
     {
         let myScene = this;
-        //Title
+        //Título
         this.title = this.add.bitmapText(
             myScene.CONFIG.centerX, 
-            75,
+            175,
             'click',
             'Loading Game',
-            14,
-            0.5
-        );
+            32
+        ).setOrigin(0.5);
 
-        //Progress text
+        //Texto de carga
         this.txt_progress = this.add.bitmapText(
             myScene.CONFIG.centerX, 
-            myScene.CONFIG.centerY - 5,
+            myScene.CONFIG.centerY - 20,
             'click',
             'Loading...',
-            'preload',
-            14,
-            {x: 0.5, y: 1}
-        );
+            32
+        ).setOrigin(0.5);
 
-        //Progress bar
+        //Barra de carga
         let x = 10;
         let y = this.CONFIG.centerY + 5;
         
         this.progress = this.add.graphics({x: x, y: y});
         this.border = this.add.graphics({x: x, y: y});
 
-        //Progress callback
+        //Callback para que la barra de carga se actualice cada vez que se carge un archivo en preload
         this.load.on('progress', this.onProgress, this);
     }
 
     onProgress(val)
     {
-        //Width of progress bar
+        //Ancho de la barra de carga
         let w = this.CONFIG.width - 2*this.progress.x;
         let h = 36;
 
+        //Relleno de la barra
         this.progress.clear();
         this.progress.fillStyle('0xFFFFFF', 1);
         this.progress.fillRect(0, 0, w * val, h);
 
+        //Borde de la barra
         this.border.clear();
         this.border.lineStyle(2, '0x4D6592', 1);
         this.border.strokeRect(0, 0, w * val, h);
 
-        //Percentage in progress text
+        //Porcentaje de carga que se muestra en el texto de carga
         this.txt_progress.setText(Math.round(val * 100) + '%');
     }
 }
