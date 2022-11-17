@@ -2,15 +2,15 @@ function resizeApp()//NO TOCAR POR LO QUE MÁS QUERÁIS NI SIQUIERA YO SÉ CÓMO
 {
     'use strict';
 
-    // Width-height-ratio of game resolution 
+    // Ancho y Alto del Juego
     let game_ratio = 360 / 640; 
 
-    // Make div full height of browser and keep the ratio of game resolution 
+    // Asegurar de que se mantenga el Ratio con el Tamaño de la Ventana
     let div = document.getElementById('phaser-app'); 
     div.style.width = (window.innerHeight * game_ratio) + 'px'; 
     div.style.height = window.innerHeight + 'px'; 
 
-    // Check it device DPI in ses up the width-height-ratio 
+    // Comprobar que el DPI del Dispositivo se adapte al Ratio
     let canvas = document.getElementsByTagName('canvas')[0]; 
     
     let dpi_w = (parseInt(div.style.width) / canvas.width);
@@ -18,7 +18,7 @@ function resizeApp()//NO TOCAR POR LO QUE MÁS QUERÁIS NI SIQUIERA YO SÉ CÓMO
     let height = window.innerHeight * (dpi_w / dpi_h);
     let width = height * game_ratio; 
 
-    //Scale canvas
+    // Escalar el Canvas
     canvas.style.width = width + 'px';
     canvas.style.height = height + 'px';
 }
@@ -27,11 +27,11 @@ function runApp()
 {
     'use strict';
 
-    //Inicia la aplicación de Phaser
+    // Iniciar la Aplicación de Phaser
     let app = new App();
     app.start();
 
-    //Escalar al tamaño de ventana
+    // Escalar al Tamaño de Ventana
     window.addEventListener('resize', resizeApp);
     resizeApp();
 }
@@ -40,6 +40,6 @@ window.onload = function()
 {
     'use strict';
     
-    //Lanzar el juego
+    // Lanzar el juego
     runApp();
 }

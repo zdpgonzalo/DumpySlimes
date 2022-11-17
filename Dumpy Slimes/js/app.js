@@ -10,7 +10,7 @@ App.prototype.start = function()
 {
     'use strict';
 
-    //Escenas, hay que modificarlo cada vez que se crea una nueva escena
+    // Escenas, modificar cada vez que se crea una Nueva Escena
     let scenes = [];
 
     scenes.push(Boot);
@@ -18,7 +18,7 @@ App.prototype.start = function()
     scenes.push(Menu);
     scenes.push(Play);
 
-    //Game config
+    // Game config
     const config = {
         type: Phaser.AUTO,
         parent: 'phaser-app',
@@ -37,14 +37,14 @@ App.prototype.start = function()
         }
     };
 
-    //Crear game app
+    // Crear Game app
     let game = new Phaser.Game(config);
 
-    //Globales
+    // Globales
     game.IS_DEV = this.IS_DEV;
     game.VERSION = this.VERSION;
 
-    //Propiedades de la configuración del juego a las que deben acceder las escenas
+    // Propiedades de la Configuración del Juego a las que deben acceder las Escenas
     game.CONFIG = {
         width: config.width,
         height: config.height,
@@ -53,6 +53,6 @@ App.prototype.start = function()
         tile: 32
     }
 
-    //Sonido
+    // Sonido
     game.sound_on = true;
 }
