@@ -56,8 +56,6 @@ class Play extends Phaser.Scene
             player2.setVelocityY(player2.body.velocity.y * 2.5);
             player2.canJump = true;
         });
-
-        this.physics.add.collider(players, ground);
     }
 
     update(time, delta)
