@@ -13,23 +13,25 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         players.add(this);
 
         //Atributos
-        this.canJump = true;
         this.activePowerup = 'none'; 
         this.powerups = [];
         this.maxPowerups = 2;
         this.bounceForce = 2.5;
         this.controls = controls;
         this.maxSpeed = 600;
+        this.maxJumps = 1;
+        this.jumps = 1;
         this.key = scene.input.keyboard.addKeys("SPACE, ENTER");
+        this.scene = scene;
 
         //Colliders
         this.playerCollider = scene.physics.add.collider(this, players, function(player1, player2) {
             player1.setVelocityX(Math.min(player1.body.velocity.x * player1.bounceForce, player1.maxSpeed));
             player1.setVelocityY(Math.min(player1.body.velocity.y * player1.bounceForce, player1.maxSpeed));
-            player1.canJump = true;
+            player1.jumps = player1.maxJumps;
             player2.setVelocityX(Math.min(player2.body.velocity.x * player2.bounceForce, player2.maxSpeed));
             player2.setVelocityY(Math.min(player2.body.velocity.y * player2.bounceForce, player2.maxSpeed));
-            player2.canJump = true;
+            player2.jumps = player2.maxJumps;
         });
 
         this.groundCollider = scene.physics.add.collider(this, ground);
@@ -53,7 +55,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         //Checkeo de si el slime ha tocado el suelo. en cuyo caso puede volver a saltar
         if (this.body.onFloor())
         {
-            this.canJump = true;
+            this.jumps = this.maxJumps;
         }
 
         //Movimiento izquierda-derecha
@@ -82,9 +84,9 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         }
 
         //Salto
-        if(Phaser.Input.Keyboard.JustDown(this.controls.up) && this.canJump)
+        if(Phaser.Input.Keyboard.JustDown(this.controls.up) && this.jumps > 0)
         {
-            this.canJump = false;
+            this.jumps--;
             this.setVelocityY(-600);
         }
 
@@ -103,33 +105,75 @@ class Player extends Phaser.Physics.Arcade.Sprite {
     usePowerup()
     {
         var powerup = this.powerups[0];
+        this.powerups.splice(0, 1);
 
         switch(powerup)
         {
             case 'rocket':
-                //this.powerups.splice(0, 1);
-                this.rocket(this);
+                this.rocket();
+                break;
+            case 'intangible':
+                this.intangible();
+                break;
+            case 'doubleJump':
+                this.doubleJump();
+                break;
+            case 'freeze':
+                this.freeze();
                 break;
         }
     }
 
-    rocket(player)
+    rocket()
     {
-        player.activePowerup = 'rocket';
-        player.body.setAllowGravity(false);
-        player.setVelocityX(0);
-        player.setVelocityY(-500);
-        player.groundCollider.active = false;
-        player.setCollideWorldBounds(false);
-        player.bounceForce = 0;
-        //Player.setTexture('Rocket');
+        this.activePowerup = 'rocket';
+        this.body.setAllowGravity(false);
+        this.setVelocityX(0);
+        this.setVelocityY(-500);
+        this.groundCollider.active = false;
+        this.setCollideWorldBounds(false);
+        this.bounceForce = 0;
+        //this.setTexture('Rocket');
+        let aux = this;
         setTimeout(function()
         { 
-            player.activePowerup = 'none';
-            player.body.setAllowGravity(true);
-            player.groundCollider.active = true;
-            player.setCollideWorldBounds(true);
-            player.bounceForce = 2.5;
+            aux.activePowerup = 'none';
+            aux.body.setAllowGravity(true);
+            aux.groundCollider.active = true;
+            aux.setCollideWorldBounds(true);
+            aux.bounceForce = 2.5;
         }, 5000);
+    }
+
+    intangible()
+    {
+        this.activePowerup = 'intangible';
+        this.playerCollider.active = false;
+        let aux = this;
+        setTimeout(function()
+        { 
+            aux.activePowerup = 'none';
+            aux.playerCollider.active = true;
+        }, 5000);
+    }
+
+    doubleJump()
+    {
+        this.activePowerup = 'doubleJump';
+        this.maxJumps = 2;
+        this.jumps = 2;
+        let aux = this;
+        setTimeout(function()
+        { 
+            aux.activePowerup = 'none';
+            aux.maxJumps = 1;
+            aux.jumps = Math.min(aux.jumps, 1);
+        }, 5000);
+    }
+
+    freeze()
+    {
+        let currentScene = Phaser.Scenes.SceneManager.getScenes(true);
+
     }
 }
