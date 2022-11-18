@@ -37,6 +37,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     update(time, delta)
     {
+        //Rozamiento
         if (this.body.velocity.x != 0)
         {
             if (this.body.velocity.x > 0)
@@ -49,11 +50,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
         }
 
+        //Checkeo de si el slime ha tocado el suelo. en cuyo caso puede volver a saltar
         if (this.body.onFloor())
         {
             this.canJump = true;
         }
 
+        //Movimiento izquierda-derecha
         if(this.controls.left.isDown)
         {
             if (this.body.velocity.x > -300)
@@ -68,6 +71,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.body.velocity.x += 0.7 * delta;
             }
         }
+
+        //Acelerar la caida
         if(this.controls.down.isDown)
         {
             if (this.body.velocity.y < 300)
@@ -76,16 +81,23 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             }
         }
 
+        //Salto
         if(Phaser.Input.Keyboard.JustDown(this.controls.up) && this.canJump)
         {
             this.canJump = false;
             this.setVelocityY(-600);
         }
 
+        //Usar powerup
         if(this.key.SPACE.isDown && this.powerups.length != 0)
         {
             this.usePowerup();
         }
+    }
+
+    grabPowerup(id)
+    {
+        this.powerups.push(id);
     }
 
     usePowerup()
@@ -94,7 +106,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         switch(powerup)
         {
-            case '01':
+            case 'rocket':
                 //this.powerups.splice(0, 1);
                 this.rocket(this);
                 break;
@@ -103,9 +115,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
     rocket(player)
     {
-        player.activePowerup = this.id;
+        player.activePowerup = 'rocket';
         player.body.setAllowGravity(false);
-        player.setVelocityY(-700);
+        player.setVelocityX(0);
+        player.setVelocityY(-500);
         player.groundCollider.active = false;
         player.setCollideWorldBounds(false);
         player.bounceForce = 0;
@@ -114,7 +127,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         { 
             player.activePowerup = 'none';
             player.body.setAllowGravity(true);
-            player.setVelocityY(-500);
             player.groundCollider.active = true;
             player.setCollideWorldBounds(true);
             player.bounceForce = 2.5;
