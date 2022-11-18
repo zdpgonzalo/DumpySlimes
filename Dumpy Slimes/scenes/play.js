@@ -34,7 +34,7 @@ class Play extends Phaser.Scene
         this.physics.world.TILE_BIAS = 32;
 
         //Creación de los jugadores y sus controles
-        let players = this.add.group({
+        this.players = this.add.group({
             classType: Player,
             maxSize: 4,
             runChildUpdate: true
@@ -44,10 +44,10 @@ class Play extends Phaser.Scene
         let wasd = this.input.keyboard.addKeys({'up': keys.UP, 'down': keys.DOWN, 'left': keys.LEFT, 'right': keys.RIGHT});
         let cursors = this.input.keyboard.addKeys({'up': keys.W, 'down': keys.S, 'left': keys.A, 'right': keys.D});
 
-        this.player1 = new Player(this, 100, 450, 'star', players, ground, wasd);
-        this.player2 = new Player(this, 700, 450, 'star', players, ground, cursors);
+        this.player1 = new Player(this, 100, 450, 'star', this.players, ground, wasd);
+        this.player2 = new Player(this, 700, 450, 'star', this.players, ground, cursors);
 
-        this.player1.powerups.push('01');
+        this.powerup = new Powerup(this, 400, 100, 'star', this.players, 'rocket');
     }
 
     update(time, delta)
