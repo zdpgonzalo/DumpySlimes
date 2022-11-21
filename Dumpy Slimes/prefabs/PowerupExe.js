@@ -103,7 +103,7 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
             {
                 playerList[i].state = 'normal';
             }
-        }, 5000);
+        }, 10000);
     }
 
     bombTrap()
@@ -121,13 +121,33 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
     expansiveWave()
     {
         let playerList = this.filterList(this.player);
-        //para cada jugador
-            //calcular su vector entre el jugador que ha usado el powerup y este jugador
-            //normalizarlo para saber la magnitud de x e y
-            //aplicar cierta velocidad en cada eje multiplicada por las magnitudes
-            //cambiar el estado a launched
-        //lanzar un temporizador para volver a los jugadores al estado normal
-            //función con el bucle donde se hace
+        let x;
+        let y;
+        let direction;
+        let target;
+        for(let i = 0; i < playerList.length; i++)
+        {
+            target = playerList[i];
+            x = target.x - this.player.x;
+            y = target.y - this.player.y;
+            direction = new Phaser.Math.Vector2(x, y).normalize();
+            target.setVelocityX(1000 * direction.x);
+            target.setVelocityY(1000 * direction.y);
+            target.body.setAllowGravity(false);
+            target.setBounce(1);
+            target.state = 'launched'
+        }
+
+        setTimeout(function()
+        { 
+            for(let i = 0; i < playerList.length; i++)
+            {
+                target = playerList[i];
+                target.body.setAllowGravity(true);
+                target.setBounce(0.7);
+                target.state = 'none'
+            }
+        }, 2000);
     }
 
     //Filtra el grupo de jugadores que tiene la escena y devuelve un array con los hijos que son distintos al player recibido

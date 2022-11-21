@@ -249,13 +249,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.powerupExe.confusion();
                 break;
             case 'bombTrap':
-                this.powerupExe.confusion();
+                this.powerupExe.bombTrap();
                 break;
             case 'misile':
-                this.powerupExe.confusion();
+                this.powerupExe.missile();
                 break;
             case 'expansiveWave':
-                this.powerupExe.confusion();
+                this.powerupExe.expansiveWave();
                 break;
         }
     }
