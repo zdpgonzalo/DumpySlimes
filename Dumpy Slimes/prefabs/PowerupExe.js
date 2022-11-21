@@ -2,9 +2,10 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
     constructor(player)
     {
         this.player = player;
+        this.stun = 0;
     }
 
-    rocket()
+    rocket() //convierte al slime en un cohete que asciende a gran velocidad atravesando plataformas y golpeando a jugadores, y que el jugador puede mover de izquierda a derecha
     {
         this.player.state = 'rocket';
         this.player.body.setAllowGravity(false);
@@ -25,7 +26,7 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }, 5000);
     }
 
-    intangible()
+    intangible() //hace que el slime no colisione con otros jugadores y que no pueda ser afectado por sus powerups
     {
         this.player.playerCollider.active = false;
         let playerAux = this.player;
@@ -35,7 +36,7 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }, 5000);
     }
 
-    doubleJump()
+    doubleJump() //otorga doble salto durante un tiempo
     {
         this.player.maxJumps = 2;
         this.player.jumps = 2;
@@ -47,7 +48,7 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }, 5000);
     }
 
-    freeze()
+    freeze() //congela al jugador en pantalla que esté más alto
     {
         let playerList = this.filterList(this.player);
 
@@ -61,13 +62,24 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }
 
         target.state = 'freeze';
-        target.stun = 10;
         target.body.setAllowGravity(false);
         target.setVelocityX(0);
         target.setVelocityY(0);
+        this.stun = 10;
     }
 
-    thief()
+    breakIce() //código que maneja que el jugador congelado se descongele
+    {
+        this.stun--;
+        if(this.stun <= 0)
+        {
+            this.player.state = 'normal';
+            this.player.enableBody;
+            this.player.body.setAllowGravity(true);
+        }
+    }
+
+    thief() //roba un objeto de un jugador aleatorio que tenga al menos uno
     {
         let playerList = this.filterList(this.player);
         let target;
@@ -89,7 +101,7 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }
     }
 
-    confusion()
+    confusion() //invierte los controles del resto de jugadores
     {
         let playerList = this.filterList(this.player);
         for(let i = 0; i < playerList.length; i++)
@@ -106,19 +118,18 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }, 10000);
     }
 
-    bombTrap()
+    bombTrap() //despliega una bomba que detecta si otro jugador se acerca, acelerando hacia este y explotando al chocar con el jugador o una plataforma, lanzándolo por los aires
     {
-        //crear una instancia de BombTrap en la posición del jugador y pasarle el jugador que la ha desplegado
-        //el resto del código está en la clase de BombTrap
+        this.bombTrap = new BombTrap(this.player);
     }
 
-    misile()
+    misile() //vuela hasta el jugador que está en la primera posición y lo lanza por los aires durante un tiempo
     {
         //crear una instancia de Missile en la posición del jugador y pasarle el jugador que va en primera posición
         //el resto del código está en la clase de Misil
     }
 
-    expansiveWave()
+    expansiveWave() //lanza una onda expansiva que afecta al esto de jugadores en la pantalla y los lanza por los aires
     {
         let playerList = this.filterList(this.player);
         let x;
@@ -150,8 +161,7 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }, 2000);
     }
 
-    //Filtra el grupo de jugadores que tiene la escena y devuelve un array con los hijos que son distintos al player recibido
-    filterList(player)
+    filterList(player) //Filtra el grupo de jugadores que tiene la escena y devuelve un array con los hijos que son distintos al player recibido
     {
         let filteredList = [];
         let playerList = player.players.getChildren();

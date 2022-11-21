@@ -23,7 +23,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.maxSpeed = 600;//Velocidad máxima
         this.maxJumps = 1;//Saltos máximos consecutivos
         this.jumps = 1;//Saltos disponibles en cada momento
-        this.players = players;//Grupo al que pertenece
+        this.group = players;//Grupo al que pertenece
         this.stun = 0;//Se usa para el powerup helado, seguramente sea provisional
 
         //Colliders...
@@ -143,13 +143,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 this.setVelocityY(0);
                 if(Phaser.Input.Keyboard.JustDown(this.controls.up))
                 {
-                    this.stun--;
-                    if(this.stun<=0)
-                    {
-                        this.state = 'normal';
-                        this.enableBody;
-                        this.body.setAllowGravity(true);
-                    }
+                    this.powerupExe.breakIce();
                 }
 
                 break;

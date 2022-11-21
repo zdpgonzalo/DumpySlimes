@@ -7,7 +7,7 @@ class PowerupBubble extends Phaser.Physics.Arcade.Sprite {//Burbujas que aparece
         scene.physics.add.existing(this);
         this.setScale(1.25);
         this.refreshBody();
-        this.setCircle(6);
+        this.setCircle(12);
         this.setCollideWorldBounds(true);
         this.setBounce(1);
         this.setVelocityX(-100);
