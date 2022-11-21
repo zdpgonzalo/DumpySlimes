@@ -50,7 +50,7 @@ class Play extends Phaser.Scene
         this.player2 = new Player(this, 700, 450, 'star', this.players, ground, cursors);
 
         //Testeo, es provisional
-        this.powerup = new PowerupBubble(this, 400, 100, 'star', this.players, 'confusion');
+        this.powerup = new PowerupBubble(this, 400, 100, 'star', this.players, 'bombTrap');
         this.player2.powerups.push('rocket');
     }
 
