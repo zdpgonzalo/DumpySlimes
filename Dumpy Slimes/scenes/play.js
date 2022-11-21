@@ -33,21 +33,25 @@ class Play extends Phaser.Scene
         map.setCollisionBetween(0, 97);
         this.physics.world.TILE_BIAS = 32;
 
-        //Creación de los jugadores y sus controles
+        //Creación del grupo de jugadores para almacenarlos
         this.players = this.add.group({
             classType: Player,
             maxSize: 4,
             runChildUpdate: true
         });
 
+        //Creación de los controles que se asignarán a cada jugador
         let keys = Phaser.Input.Keyboard.KeyCodes;
-        let wasd = this.input.keyboard.addKeys({'up': keys.UP, 'down': keys.DOWN, 'left': keys.LEFT, 'right': keys.RIGHT});
-        let cursors = this.input.keyboard.addKeys({'up': keys.W, 'down': keys.S, 'left': keys.A, 'right': keys.D});
+        let wasd = this.input.keyboard.addKeys({'up': keys.UP, 'down': keys.DOWN, 'left': keys.LEFT, 'right': keys.RIGHT, 'power': keys.SPACE});
+        let cursors = this.input.keyboard.addKeys({'up': keys.W, 'down': keys.S, 'left': keys.A, 'right': keys.D, 'power': keys.ENTER});
 
+        //Creación de los jugadores
         this.player1 = new Player(this, 100, 450, 'star', this.players, ground, wasd);
         this.player2 = new Player(this, 700, 450, 'star', this.players, ground, cursors);
 
-        this.powerup = new Powerup(this, 400, 100, 'star', this.players, 'rocket');
+        //Testeo, es provisional
+        this.powerup = new PowerupBubble(this, 400, 100, 'star', this.players, 'rocket');
+        this.player2.powerups.push('rocket');
     }
 
     update(time, delta)
@@ -71,70 +75,5 @@ class Play extends Phaser.Scene
         }
         
         return out;
-    }
-
-    rocket(player)
-    {
-        player.activePowerup = 'rocket';
-        player.body.setAllowGravity(false);
-        player.setVelocityX(0);
-        player.setVelocityY(-500);
-        player.groundCollider.active = false;
-        player.setCollideWorldBounds(false);
-        player.bounceForce = 0;
-        //player.setTexture('Rocket');
-        setTimeout(function()
-        { 
-            player.activePowerup = 'none';
-            player.body.setAllowGravity(true);
-            player.groundCollider.active = true;
-            player.setCollideWorldBounds(true);
-            player.bounceForce = 2.5;
-        }, 5000);
-    }
-
-    intangible(player)
-    {
-        player.activePowerup = 'intangible';
-        player.playerCollider.active = false;
-        setTimeout(function()
-        { 
-            player.activePowerup = 'none';
-            player.playerCollider.active = true;
-        }, 5000);
-    }
-
-    doubleJump(player)
-    {
-        player.activePowerup = 'doubleJump';
-        player.maxJumps = 2;
-        player.jumps = 2;
-        setTimeout(function()
-        { 
-            player.activePowerup = 'none';
-            player.maxJumps = 1;
-            player.jumps = Math.min(aux.jumps, 1);
-        }, 5000);
-    }
-
-    freeze(player)
-    {
-        let playerList = this.players.getChildren();
-        let index = playerList.indexOf(player);
-        playerList.splice(index, 1);
-
-        let target = playerList[0];
-        for(let i = 1; i < playerList.length; i++)
-        {
-            if(playerList[i].y < target.y)
-            {
-                target = playerList[i];
-            }
-        }
-
-        index = this.players.indexOf(target);
-
-        
-
     }
 }
