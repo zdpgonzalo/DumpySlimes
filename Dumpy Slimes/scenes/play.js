@@ -42,15 +42,15 @@ class Play extends Phaser.Scene
 
         //Creación de los controles que se asignarán a cada jugador
         let keys = Phaser.Input.Keyboard.KeyCodes;
-        let wasd = this.input.keyboard.addKeys({'up': keys.UP, 'down': keys.DOWN, 'left': keys.LEFT, 'right': keys.RIGHT, 'power': keys.SPACE});
-        let cursors = this.input.keyboard.addKeys({'up': keys.W, 'down': keys.S, 'left': keys.A, 'right': keys.D, 'power': keys.ENTER});
+        let wasd = this.input.keyboard.addKeys({'up': keys.W, 'down': keys.S, 'left': keys.A, 'right': keys.D, 'power': keys.SPACE});
+        let cursors = this.input.keyboard.addKeys({'up': keys.UP, 'down': keys.DOWN, 'left': keys.LEFT, 'right': keys.RIGHT, 'power': keys.ENTER});
 
         //Creación de los jugadores
         this.player1 = new Player(this, 100, 450, 'star', this.players, ground, wasd);
         this.player2 = new Player(this, 700, 450, 'star', this.players, ground, cursors);
 
         //Testeo, es provisional
-        this.powerup = new PowerupBubble(this, 400, 100, 'star', this.players, 'rocket');
+        this.powerup = new PowerupBubble(this, 400, 100, 'star', this.players, 'confusion');
         this.player2.powerups.push('rocket');
     }
 
