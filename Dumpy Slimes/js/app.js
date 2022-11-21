@@ -34,6 +34,15 @@ App.prototype.start = function()
                 debug: true,
                 fps: 60
             }
+        },
+        plugins: {
+            scene: [
+                {
+                    key: 'PhaserRaycaster',
+                    plugin: PhaserRaycaster,
+                    mapping: 'raycasterPlugin'
+                }
+            ]
         }
     };
 
