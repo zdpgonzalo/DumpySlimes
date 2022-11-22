@@ -1,7 +1,10 @@
 class PowerupBubble extends Phaser.Physics.Arcade.Sprite {//Burbujas que aparecen en el nivel y otorgan powerups
     constructor(scene, x, y, sprite, players, id)
     {
+        //Constructor del padre
         super(scene, x, y, sprite);
+
+        //Atributos generales
         scene.sys.updateList.add(this);
         scene.sys.displayList.add(this);
         scene.physics.add.existing(this);
