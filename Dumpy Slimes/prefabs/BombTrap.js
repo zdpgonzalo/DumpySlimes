@@ -51,6 +51,16 @@ class BombTrap extends Phaser.Physics.Arcade.Sprite {
         this.scene.physics.add.overlap(this.ray, this.filterList(this.user), function(rayFoVCircle, target){
             that.target = target;
             that.state = 'pursue';
+            //reseteamos el raycaster para que la explosión atraviese las paredes
+            that.raycaster = that.user.scene.raycasterPlugin.createRaycaster();
+            that.ray = that.raycaster.createRay({
+                origin: {
+                  x: that.x,
+                  y: that.y
+                }
+            });
+            that.ray.enablePhysics();
+            that.ray.autoSlice = true;
         }, this.ray.processOverlap.bind(this.ray));
         //...comprueba si ha habido una colisión con un jugador o con una plataforma, en cuyo caso explota
         this.playerOverlap = this.scene.physics.add.overlap(this, this.filterList(this.user), function(bomb, target){
@@ -66,12 +76,13 @@ class BombTrap extends Phaser.Physics.Arcade.Sprite {
         //actualiza la posición desde la que el raycaster lanza rayos
         this.ray.origin.x = this.x;
         this.ray.origin.y = this.y;
+        //Código para debuggear el raycaster
+            //let intersections = this.ray.castCircle();
+            //this.draw(this.graphics, intersections);
         //distintos comportamientos según el estado
         switch(this.state)
         {
             case 'search'://la bomba esta buscando un jugador que no sea quien la ha creado al que lanzarse
-                let intersections = this.ray.castCircle();
-                //this.draw(this.graphics, intersections);
                 break;
             case 'pursue'://la bomba acelera hacia el primer jugador que ha visto
                 this.scene.physics.accelerateToObject(this, this.target, this.acceleration, this.maxSpeed, this.maxSpeed);

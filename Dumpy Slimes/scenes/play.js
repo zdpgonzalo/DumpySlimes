@@ -13,7 +13,7 @@ class Play extends Phaser.Scene
     create()
     {
         //Creación del nivel
-        //let levelGenerator = new LevelGenerator();
+        let levelGenerator = new LevelGenerator(this);
         //let array = levelGenerator.generateLevel();
         let array = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -28,12 +28,14 @@ class Play extends Phaser.Scene
             [17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17]
         ];
 
-        let json = this.cache.json.get('tilemap1');
-        let arrayFixed = this.jsonToMatrix(json);
+        //let json = this.cache.json.get('tilemap1');
+        //let arrayFixed = this.jsonToMatrix(json);
+
+        let arrayFixed = levelGenerator.generateLevel();
 
         const map = this.make.tilemap({data:arrayFixed, tileWidth:70, tileHeight:70});
         const tileset = map.addTilesetImage('sheet', 'tiles');
-        let scalingFactor = this.CONFIG.width / (tileset.tileWidth * (json.layers[0].width));
+        let scalingFactor = this.CONFIG.width / (tileset.tileWidth * (arrayFixed[0].length));
         let ground = map.createLayer('layer', tileset).setScale(scalingFactor);
         map.setCollisionBetween(0, 97);
         this.physics.world.TILE_BIAS = 32;
@@ -69,11 +71,16 @@ class Play extends Phaser.Scene
         //Testeo, es provisional
         this.powerup = new PowerupBubble(this, 400, 100, 'star', this.players, 'bombTrap');
         this.player2.powerups.push('rocket');
+
+        //Creación de cámaras
+        this.cameras.main.setBounds(0, 0, this.CONFIG.width, arrayFixed.length * (map.tileHeight * scalingFactor));
+        this.physics.world.setBounds(0, 0, this.CONFIG.width, arrayFixed.length * (map.tileHeight * scalingFactor));
+        this.cameras.main.startFollow(this.player1, true, 0.05, 0.05);
     }
 
     update(time, delta)
     {
-        console.log(this.player1.jumping);
+
     }
 
     jsonToMatrix(json)

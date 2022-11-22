@@ -1,7 +1,7 @@
 class PowerupExe { //Clase auxiliar, solo sirve para separar el código
     constructor(player)
     {
-        //Atributos generales
+        //Atributos
         this.player = player;//Almacena el jugador al que hace referencia
         //Rocket
         this.rocketSpeed = -100;//Velocidad cuando el jugador está en modo cohete
@@ -20,9 +20,8 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         this.expansionWaveTime = 2000;//Duración del lanzamiento
     }
 
-    update(time, delta)
+    update(time, delta)//Comprueba el estado del jugador, y según este ejecuta cierto código
     {
-        //Comprueba el estado del jugador, y según este ejecuta cierto código
         switch(this.player.state)
         {
             case 'rocket':
@@ -35,51 +34,48 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }
     }
 
-    rocket() //convierte al slime en un cohete que asciende a gran velocidad atravesando plataformas y golpeando a jugadores, y que el jugador puede mover de izquierda a derecha
+    rocket(player) //convierte al slime en un cohete que asciende a gran velocidad atravesando plataformas y golpeando a jugadores, y que el jugador puede mover de izquierda a derecha
     {
-        this.player.state = 'rocket';
-        this.player.body.setAllowGravity(false);
-        this.player.setVelocityX(0);
-        this.player.setVelocityY(this.rocketSpeed);
-        this.player.groundCollider.active = false;
-        this.player.setBounce(0);
-        let that = this;
+        player.state = 'rocket';
+        player.body.setGravityY(0);
+        player.setVelocityX(0);
+        player.setVelocityY(this.rocketSpeed);
+        player.groundCollider.active = false;
+        player.setBounce(0);
         setTimeout(function()
         { 
-            that.player.state = 'normal';
-            that.player.body.setAllowGravity(true);
-            that.player.groundCollider.active = true;
-            that.player.setBounce(this.player.bounceGround);
+            player.state = 'normal';
+            player.body.setGravityY(player.gravity);
+            player.groundCollider.active = true;
+            player.setBounce(this.player.bounceGround);
         }, this.rocketTime);
     }
 
-    intangible() //hace que el slime no colisione con otros jugadores y que no pueda ser afectado por sus powerups
+    intangible(player) //hace que el slime no colisione con otros jugadores y que no pueda ser afectado por sus powerups
     {
-        this.player.state = 'intangible';
-        this.player.playerCollider.active = false;
-        let that = this;
+        player.state = 'intangible';
+        player.playerCollider.active = false;
         setTimeout(function()
         { 
-            that.player.state = 'normal';
-            that.player.playerCollider.active = true;
+            player.state = 'normal';
+            player.playerCollider.active = true;
         }, this.intangibleTime);
     }
 
-    doubleJump() //otorga doble salto durante un tiempo
+    doubleJump(player) //otorga doble salto durante un tiempo
     {
-        this.player.maxJumps = 2;
-        this.player.jumps = 2;
-        let that = this;
+        player.maxJumps = 2;
+        player.jumps = 2;
         setTimeout(function()
         { 
-            that.player.maxJumps = 1;
-            that.player.jumps = Math.min(that.player.jumps, 1);
+            player.maxJumps = 1;
+            player.jumps = Math.min(player.jumps, 1);
         }, this.doubleJumpTime);
     }
 
-    freeze() //congela al jugador en pantalla que esté más alto
+    freeze(player) //congela al jugador en pantalla que esté más alto
     {
-        let playerList = this.filterList(this.player);
+        let playerList = this.filterList(player);
 
         let target;
         for(let i = 0; i < playerList.length; i++)
@@ -93,27 +89,27 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         if(target != null)
         {
             target.state = 'freeze';
-            target.body.setAllowGravity(false);
+            target.body.setGravityY(0);
             target.setVelocityX(0);
             target.setVelocityY(0);
             this.stun = this.maxStun;
         }
     }
 
-    breakIce() //código que maneja que el jugador congelado se descongele
+    breakIce(player) //código que maneja que el jugador congelado se descongele
     {
         this.stun--;
         if(this.stun <= 0)
         {
-            this.player.state = 'normal';
-            this.player.enableBody;
-            this.player.body.setAllowGravity(true);
+            player.state = 'normal';
+            player.enableBody;
+            player.body.setGravityY(player.gravity);
         }
     }
 
-    thief() //roba un objeto de un jugador aleatorio que tenga al menos uno
+    thief(player) //roba un objeto de un jugador aleatorio que tenga al menos uno
     {
-        let playerList = this.filterList(this.player);
+        let playerList = this.filterList(player);
         let target;
         let random;
         while(playerList.length > 0)
@@ -133,9 +129,9 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }
     }
 
-    confusion() //invierte los controles del resto de jugadores
+    confusion(player) //invierte los controles del resto de jugadores
     {
-        let playerList = this.filterList(this.player);
+        let playerList = this.filterList(player);
         for(let i = 0; i < playerList.length; i++)
         {
             playerList[i].state = 'confusion';
@@ -150,19 +146,19 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }, this.confusionTime);
     }
 
-    bombTrap() //despliega una bomba que detecta si otro jugador se acerca, acelerando hacia este y explotando al chocar con el jugador o una plataforma, lanzándolo por los aires
+    bombTrap(player) //despliega una bomba que detecta si otro jugador se acerca, acelerando hacia este y explotando al chocar con el jugador o una plataforma, lanzándolo por los aires
     {
-        this.player.scene.bombs.add(new BombTrap(this.player, this.player.ground));
+        player.scene.bombs.add(new BombTrap(player, player.ground));
     }
 
-    misile() //vuela hasta el jugador que está en la primera posición y lo lanza por los aires durante un tiempo
+    misile(player) //vuela hasta el jugador que está en la primera posición y lo lanza por los aires durante un tiempo
     {
-        this.player.scene.missiles.add(new Missile(this.player));
+        player.scene.missiles.add(new Missile(player));
     }
 
-    expansiveWave() //lanza una onda expansiva que afecta al esto de jugadores en la pantalla y los lanza por los aires
+    expansiveWave(player) //lanza una onda expansiva que afecta al esto de jugadores en la pantalla y los lanza por los aires
     {
-        let playerList = this.filterList(this.player);
+        let playerList = this.filterList(player);
         let x;
         let y;
         let direction;
@@ -175,7 +171,7 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
             direction = new Phaser.Math.Vector2(x, y).normalize();
             target.setVelocityX(this.expansionWaveForce * direction.x);
             target.setVelocityY(this.expansionWaveForce * direction.y);
-            target.body.setAllowGravity(false);
+            target.body.setGravityY(0);
             target.setBounce(1);
             target.state = 'launched'
         }
@@ -185,7 +181,7 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
             for(let i = 0; i < playerList.length; i++)
             {
                 target = playerList[i];
-                target.body.setAllowGravity(true);
+                target.body.setGravityY(target.gravity);
                 target.setBounce(target.bounceGround);
                 target.state = 'none'
             }

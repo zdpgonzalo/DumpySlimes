@@ -30,7 +30,7 @@ App.prototype.start = function()
         physics: {
             default: 'arcade',
             arcade: {
-                gravity: { y: 1000 },
+                gravity: { y: 0 },
                 debug: true,
                 fps: 60
             }
