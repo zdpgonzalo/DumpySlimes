@@ -13,6 +13,8 @@ class Play extends Phaser.Scene
     create()
     {
         //Creación del nivel
+        //let levelGenerator = new LevelGenerator();
+        //let array = levelGenerator.generateLevel();
         let array = [
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -26,17 +28,32 @@ class Play extends Phaser.Scene
             [17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17]
         ];
 
-        let arrayFixed = this.tmjToArray(array);
+        let json = this.cache.json.get('tilemap1');
+        let arrayFixed = this.jsonToMatrix(json);
+
         const map = this.make.tilemap({data:arrayFixed, tileWidth:70, tileHeight:70});
         const tileset = map.addTilesetImage('sheet', 'tiles');
-        const ground = map.createLayer('layer', tileset);
+        let scalingFactor = this.CONFIG.width / (tileset.tileWidth * (json.layers[0].width));
+        let ground = map.createLayer('layer', tileset).setScale(scalingFactor);
         map.setCollisionBetween(0, 97);
         this.physics.world.TILE_BIAS = 32;
 
-        //Creación del grupo de jugadores para almacenarlos
+        //Creación de grupos
         this.players = this.add.group({
             classType: Player,
             maxSize: 4,
+            runChildUpdate: true
+        });
+
+        this.bombs = this.add.group({
+            classType: BombTrap,
+            maxSize: 100,
+            runChildUpdate: true
+        });
+
+        this.missiles = this.add.group({
+            classType: Missile,
+            maxSize: 100,
             runChildUpdate: true
         });
 
@@ -56,21 +73,28 @@ class Play extends Phaser.Scene
 
     update(time, delta)
     {
-        
+        console.log(this.player1.jumping);
     }
 
-    tmjToArray(array)
+    jsonToMatrix(json)
     {
-        let width = array[0].length;
-        let out = Array(array.length);
+        let width = json.layers[0].width;
+        let array = json.layers[0].data;
+        let out = [];
+        let row = [];
 
         for (let i = 0; i < array.length; i++) {
-            out[i] = Array(width);
+            row.push(array[i]);
+            if(row.length == width)
+            {
+                out.push(row.slice(0));
+                row = [];
+            }
         }
 
-        for (let y = 0; y < array.length; y++) {
+        for (let y = 0; y < out.length; y++) {
             for (let x = 0; x < width; x++) {
-                out[y][x] = array[y][x] - 1;
+                out[y][x] = out[y][x] - 1;
             }
         }
         

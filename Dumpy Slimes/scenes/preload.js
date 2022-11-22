@@ -18,9 +18,11 @@ class Preload extends Phaser.Scene
         // Spritesheets
         // Ruta
         this.load.setPath('assets');
-        // Archivos
+        // Sprites
         this.load.image('tiles', 'tilesheets/sheet.png');
         this.load.image('star', 'sprites/star.png');
+        // Mapas
+        this.load.json('tilemap1', 'tilemaps/tilemap1.json');
     }
 
     create()
