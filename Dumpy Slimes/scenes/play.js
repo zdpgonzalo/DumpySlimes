@@ -35,7 +35,7 @@ class Play extends Phaser.Scene
 
         const map = this.make.tilemap({data:arrayFixed, tileWidth:70, tileHeight:70});
         const tileset = map.addTilesetImage('sheet', 'tiles');
-        let scalingFactor = this.CONFIG.width / (tileset.tileWidth * (arrayFixed[0].length));
+        let scalingFactor = (this.CONFIG.width * 0.5) / (tileset.tileWidth * (arrayFixed[0].length));
         let ground = map.createLayer('layer', tileset).setScale(scalingFactor);
         map.setCollisionBetween(0, 97);
         this.physics.world.TILE_BIAS = 32;
@@ -73,9 +73,15 @@ class Play extends Phaser.Scene
         this.player2.powerups.push('rocket');
 
         //Creación de cámaras
-        this.cameras.main.setBounds(0, 0, this.CONFIG.width, arrayFixed.length * (map.tileHeight * scalingFactor));
-        this.physics.world.setBounds(0, 0, this.CONFIG.width, arrayFixed.length * (map.tileHeight * scalingFactor));
+        this.physics.world.setBounds(0, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
+        
+        this.cameras.main.setBounds(0, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
+
+        const camera2 = this.cameras.add(this.CONFIG.width * 0.5, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
+        camera2.setBounds(0, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
+        
         this.cameras.main.startFollow(this.player1, true, 0.05, 0.05);
+        camera2.startFollow(this.player2, true, 0.05, 0.05);
     }
 
     update(time, delta)

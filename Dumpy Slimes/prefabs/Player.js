@@ -6,21 +6,29 @@ class Player extends Phaser.Physics.Arcade.Sprite {
 
         //Atributos...
         //...para la configuración en la escena
-        this.size = 2.5;//Tamaño al que se escala el sprite
-        this.bounceGround = 0.7;//Fuerza de rebote al chocar con las plataformas
-        this.gravity = 1000;//Gravedad por defecto del jugador
+        this.size = 2;//Tamaño al que se escala el sprite
+        this.bounceGround = 0.8;//Fuerza de rebote al chocar con las plataformas
+        this.gravity = 600 * this.size;//Gravedad por defecto del jugador
         //...para el funcionamiento de los powerups
         this.state = 'normal';//Estado, se usa para cambiar los controles al usar powerups como cohete o confusión
         this.powerups = [];//Almacena los powerups
         this.maxPowerups = 2;//Máximo de powerups almacenados
         this.powerupExe = new PowerupExe(this);//Clase que se usa para ejecutar los powerups, es para tener el código separado
+        this.rocketSpeed = this.speed * 3;
+        this.rocketMaxMovementSpeed = this.maxMovementSpeed * 1.5;
+        this.rocketDrag = this.drag * 5;
         //...para configurar los controles y el movimiento
         this.controls = controls;//Inputs de los controles
-        this.maxSpeed = 600;//Velocidad máxima
+        this.speed = 0.25 * this.size;//Velocidad de aceleración al moverse
+        this.maxMovementSpeed = 125 * this.size;//Velocidad máxima al moverse
+        this.maxBounceSpeed = this.maxMovementSpeed * 2;//Velocidad máxima al rebotar con otro jugador
+        this.drag = 0.04 * this.size;//Fuerza de rozamiento en el eje x
         this.maxJumps = 1;//Saltos máximos consecutivos
         this.jumps = 1;//Saltos disponibles en cada momento
         this.jumpTimer;//Controla el tiempo que dura el salto
+        this.jumpForce = -250 * this.size;//Fuerza del salto
         this.jumpDuration = 800;//Máxima duración que el jugador puede mantener presionada la tecla de salto para saltar más alto
+        this.jumpGravityReductionFactor = 0.5;//Número por el que se modifica la gravedad al mantener pulsado el botón de salto
         this.bouncePlayer = 2.5;//Fuerza de rebote al chocar con otros jugadores, afecta a este jugador y no a los otros
         //...referencias a elementos de la escena
         this.group = players;//Grupo de la escena al que pertenece el jugador
@@ -42,12 +50,12 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         //...entre jugadores
         this.playerCollider = scene.physics.add.collider(this, this.group, function(player1, player2) {
             //Este código es para que los jugadores reboten más entre ellos y que pùedan saltar de nuevo tras hacerlo, y resetea el salto
-            player1.setVelocityX(Math.min(player1.body.velocity.x * player1.bouncePlayer, player1.maxSpeed));
-            player1.setVelocityY(Math.min(player1.body.velocity.y * player1.bouncePlayer, player1.maxSpeed));
+            player1.setVelocityX(Math.min(player1.body.velocity.x * player1.bouncePlayer, player1.maxBounceSpeed));
+            player1.setVelocityY(Math.min(player1.body.velocity.y * player1.bouncePlayer, player1.maxBounceSpeed));
             player1.jumps = player1.maxJumps;
             player1.body.setGravityY(player1.gravity);
-            player2.setVelocityX(Math.min(player2.body.velocity.x * player2.bouncePlayer, player2.maxSpeed));
-            player2.setVelocityY(Math.min(player2.body.velocity.y * player2.bouncePlayer, player2.maxSpeed));
+            player2.setVelocityX(Math.min(player2.body.velocity.x * player2.bouncePlayer, player2.maxBounceSpeed));
+            player2.setVelocityY(Math.min(player2.body.velocity.y * player2.bouncePlayer, player2.maxBounceSpeed));
             player2.jumps = player2.maxJumps;
             player2.body.setGravityY(player2.gravity);
         });
@@ -71,11 +79,11 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 {
                     if (this.body.velocity.x > 0)
                     {
-                        this.body.velocity.x += -0.1 * delta;
+                        this.body.velocity.x += -(this.drag * delta);
                     } 
                     else 
                     {
-                        this.body.velocity.x += 0.1 * delta;
+                        this.body.velocity.x += this.drag * delta;
                     }
                 }
 
@@ -88,25 +96,25 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 //Movimiento izquierda-derecha
                 if(this.controls.left.isDown)
                 {
-                    if (this.body.velocity.x > -300)
+                    if (this.body.velocity.x > -(this.maxMovementSpeed))
                     {
-                        this.body.velocity.x += -0.7 * delta;
+                        this.body.velocity.x += -(this.speed * delta);
                     }
                 }
                 if(this.controls.right.isDown)
                 {
-                    if (this.body.velocity.x < 300)
+                    if (this.body.velocity.x < this.maxMovementSpeed)
                     {
-                        this.body.velocity.x += 0.7 * delta;
+                        this.body.velocity.x += this.speed * delta;
                     }
                 }
 
                 //Acelerar la caida
                 if(this.controls.down.isDown)
                 {
-                    if (this.body.velocity.y < 300)
+                    if (this.body.velocity.y < this.maxMovementSpeed)
                     {
-                        this.body.velocity.y += 1 * delta;
+                        this.body.velocity.y += this.speed * delta;
                     }
                 }
 
@@ -114,8 +122,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 if(Phaser.Input.Keyboard.JustDown(this.controls.up) && this.jumps > 0)
                 {
                     this.jumps--;
-                    this.setVelocityY(-500);
-                    this.body.setGravityY(this.gravity / 2);
+                    this.setVelocityY(this.jumpForce);
+                    this.body.setGravityY(this.gravity * this.jumpGravityReductionFactor);
                     this.jumpTimer = time;
                 }
                 if(Phaser.Input.Keyboard.JustUp(this.controls.up) || (time - this.jumpTimer) > this.jumpDuration || this.body.velocity.y > 0)
@@ -136,27 +144,27 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 {
                     if (this.body.velocity.x > 0)
                     {
-                        this.body.velocity.x += -0.5 * delta;
+                        this.body.velocity.x += -(this.rocketDrag * delta);
                     } 
                     else 
                     {
-                        this.body.velocity.x += 0.5 * delta;
+                        this.body.velocity.x += this.rocketDrag * delta;
                     }
                 }
 
                 //Movimiento izquierda-derecha
                 if(this.controls.left.isDown)
                 {
-                    if (this.body.velocity.x > -400)
+                    if (this.body.velocity.x > -(this.rocketMaxMovementSpeed))
                     {
-                        this.body.velocity.x += -2 * delta;
+                        this.body.velocity.x += -(this.rocketSpeed * delta);
                     }
                 }
                 if(this.controls.right.isDown)
                 {
-                    if (this.body.velocity.x < 400)
+                    if (this.body.velocity.x < this.rocketMaxMovementSpeed)
                     {
-                        this.body.velocity.x += 2 * delta;
+                        this.body.velocity.x += this.rocketSpeed * delta;
                     }
                 }
 
@@ -167,11 +175,11 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 {
                     if (this.body.velocity.x > 0)
                     {
-                        this.body.velocity.x += -0.1 * delta;
+                        this.body.velocity.x += -(this.drag * delta);
                     } 
                     else 
                     {
-                        this.body.velocity.x += 0.1 * delta;
+                        this.body.velocity.x += this.drag * delta;
                     }
                 }
 
@@ -184,37 +192,37 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 //Movimiento izquierda-derecha
                 if(this.controls.left.isDown)
                 {
-                    if (this.body.velocity.x > -300)
+                    if (this.body.velocity.x > -(this.maxMovementSpeed))
                     {
-                        this.body.velocity.x += -0.7 * delta;
+                        this.body.velocity.x += -(this.speed * delta);
                     }
                 }
                 if(this.controls.right.isDown)
                 {
-                    if (this.body.velocity.x < 300)
+                    if (this.body.velocity.x < this.maxMovementSpeed)
                     {
-                        this.body.velocity.x += 0.7 * delta;
+                        this.body.velocity.x += this.speed * delta;
                     }
                 }
 
                 //Acelerar la caida
                 if(this.controls.down.isDown)
                 {
-                    if (this.body.velocity.y < 300)
+                    if (this.body.velocity.y < this.maxMovementSpeed)
                     {
-                        this.body.velocity.y += 1 * delta;
+                        this.body.velocity.y += this.speed * delta;
                     }
                 }
 
                 //Salto
-                if(Phaser.Input.Keyboard.JustDown(this.controls.down) && this.jumps > 0)
+                if(Phaser.Input.Keyboard.JustDown(this.controls.up) && this.jumps > 0)
                 {
                     this.jumps--;
-                    this.setVelocityY(-500);
-                    this.body.setGravityY(this.gravity / 2);
+                    this.setVelocityY(this.jumpForce);
+                    this.body.setGravityY(this.gravity * this.jumpGravityReductionFactor);
                     this.jumpTimer = time;
                 }
-                if(Phaser.Input.Keyboard.JustUp(this.controls.down) || (time - this.jumpTimer) > this.jumpDuration || this.body.velocity.y > 0)
+                if(Phaser.Input.Keyboard.JustUp(this.controls.up) || (time - this.jumpTimer) > this.jumpDuration || this.body.velocity.y > 0)
                 {
                     this.body.setGravityY(this.gravity);
                 }
@@ -234,17 +242,17 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 }
 
                 break;
-            case 'confusion': //Movimiento al estar confuso
+            case 'confusion': //Movimiento al estar confuso, controles invertidos
                 //Rozamiento
                 if (this.body.velocity.x != 0)
                 {
                     if (this.body.velocity.x > 0)
                     {
-                        this.body.velocity.x += -0.1 * delta;
+                        this.body.velocity.x += -(this.drag * delta);
                     } 
                     else 
                     {
-                        this.body.velocity.x += 0.1 * delta;
+                        this.body.velocity.x += this.drag * delta;
                     }
                 }
 
@@ -257,25 +265,25 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 //Movimiento izquierda-derecha
                 if(this.controls.right.isDown)
                 {
-                    if (this.body.velocity.x > -300)
+                    if (this.body.velocity.x > -(this.maxMovementSpeed))
                     {
-                        this.body.velocity.x += -0.7 * delta;
+                        this.body.velocity.x += -(this.speed * delta);
                     }
                 }
                 if(this.controls.left.isDown)
                 {
-                    if (this.body.velocity.x < 300)
+                    if (this.body.velocity.x < this.maxMovementSpeed)
                     {
-                        this.body.velocity.x += 0.7 * delta;
+                        this.body.velocity.x += this.speed * delta;
                     }
                 }
 
                 //Acelerar la caida
                 if(this.controls.up.isDown)
                 {
-                    if (this.body.velocity.y < 300)
+                    if (this.body.velocity.y < this.maxMovementSpeed)
                     {
-                        this.body.velocity.y += 1 * delta;
+                        this.body.velocity.y += this.speed * delta;
                     }
                 }
 
@@ -283,7 +291,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 if(Phaser.Input.Keyboard.JustDown(this.controls.down) && this.jumps > 0)
                 {
                     this.jumps--;
-                    this.setVelocityY(-600);
+                    this.setVelocityY(this.jumpForce);
+                    this.body.setGravityY(this.gravity * this.jumpGravityReductionFactor);
+                    this.jumpTimer = time;
+                }
+                if(Phaser.Input.Keyboard.JustUp(this.controls.down) || (time - this.jumpTimer) > this.jumpDuration || this.body.velocity.y > 0)
+                {
+                    this.body.setGravityY(this.gravity);
                 }
 
                 //Usar powerup

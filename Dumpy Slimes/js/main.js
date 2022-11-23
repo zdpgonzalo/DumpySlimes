@@ -3,7 +3,7 @@ function resizeApp()//NO TOCAR POR LO QUE MÁS QUERÁIS NI SIQUIERA YO SÉ CÓMO
     'use strict';
 
     // Ancho y Alto del Juego
-    let game_ratio = 360 / 640; 
+    let game_ratio = 720 / 640; 
 
     // Asegurar de que se mantenga el Ratio con el Tamaño de la Ventana
     let div = document.getElementById('phaser-app'); 

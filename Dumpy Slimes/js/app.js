@@ -23,7 +23,7 @@ App.prototype.start = function()
         type: Phaser.AUTO,
         parent: 'phaser-app',
         title: 'Dumpy Slimes',
-        width: 720,
+        width: 1440,
         height: 1280,
         scene: scenes,
         backgroundColor: '0xF4CCA1',
