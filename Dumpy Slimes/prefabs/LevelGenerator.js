@@ -2,12 +2,13 @@ class LevelGenerator {
     constructor(scene)
     {
         this.blocks = [];
-        this.tilemapIds = ['tilemap1', 'tilemap1'];
+        this.tilemapIds = ['tilemap1', 'tilemap2'];
+        let block;
         for(let i = 0; i < this.tilemapIds.length; i++)
         {
-            let block = scene.cache.json.get(this.tilemapIds[i]);
+            block = scene.cache.json.get(this.tilemapIds[i]);
             block = this.jsonToMatrix(block);
-            this.blocks.push(block);
+            this.blocks.push(block.slice(0));
         }
 
         this.levelSize = 3;

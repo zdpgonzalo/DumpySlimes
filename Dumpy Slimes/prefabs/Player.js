@@ -19,7 +19,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.rocketDrag = this.drag * 5;
         //...para configurar los controles y el movimiento
         this.controls = controls;//Inputs de los controles
-        this.speed = 0.25 * this.size;//Velocidad de aceleración al moverse
+        this.speed = 0.5 * this.size;//Velocidad de aceleración al moverse
         this.maxMovementSpeed = 125 * this.size;//Velocidad máxima al moverse
         this.maxBounceSpeed = this.maxMovementSpeed * 2;//Velocidad máxima al rebotar con otro jugador
         this.drag = 0.04 * this.size;//Fuerza de rozamiento en el eje x
