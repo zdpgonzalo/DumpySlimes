@@ -14,23 +14,6 @@ class Play extends Phaser.Scene
     {
         //Creación del nivel
         let levelGenerator = new LevelGenerator(this);
-        //let array = levelGenerator.generateLevel();
-        let array = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2],
-            [0, 0, 2, 2, 0, 0, 0, 0, 2, 2, 0, 0],
-            [2, 0, 0, 0, 0, 2, 2, 0, 0, 0, 0, 2],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
-            [17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17]
-        ];
-
-        //let json = this.cache.json.get('tilemap1');
-        //let arrayFixed = this.jsonToMatrix(json);
-
         let arrayFixed = levelGenerator.generateLevel();
 
         const map = this.make.tilemap({data:arrayFixed, tileWidth:70, tileHeight:70});
@@ -69,19 +52,20 @@ class Play extends Phaser.Scene
         this.player2 = new Player(this, 700, 450, 'star', this.players, ground, cursors);
 
         //Testeo, es provisional
-        this.powerup = new PowerupBubble(this, 400, 100, 'star', this.players, 'bombTrap');
-        this.player2.powerups.push('rocket');
+        //this.powerup = new PowerupBubble(this, 400, 100, 'star', this.players, 'bombTrap');
+        //this.player2.powerups.push('rocket');
 
         //Creación de cámaras
         this.physics.world.setBounds(0, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
-        
-        this.cameras.main.setBounds(0, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
 
-        const camera2 = this.cameras.add(this.CONFIG.width * 0.5, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
-        camera2.setBounds(0, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
+        this.cameras.main.setSize(this.CONFIG.width, this.CONFIG.height);
+        const camera2 = this.cameras.add(this.CONFIG.width * 0.5, 0, this.CONFIG.width, this.CONFIG.height);
+
+        this.cameras.main.setBounds(0, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
+                  camera2.setBounds(0, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
         
-        this.cameras.main.startFollow(this.player1, true, 0.05, 0.05);
-        camera2.startFollow(this.player2, true, 0.05, 0.05);
+        this.cameras.main.startFollow(this.player1, true, 0.05, 0.05, true);
+        camera2.startFollow(this.player2, true, 0.05, 0.05, true);
     }
 
     update(time, delta)

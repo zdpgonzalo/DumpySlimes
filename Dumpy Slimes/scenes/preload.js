@@ -23,6 +23,7 @@ class Preload extends Phaser.Scene
         this.load.image('star', 'sprites/star.png');
         // Mapas
         this.load.json('tilemap1', 'tilemaps/tilemap1.json');
+        this.load.json('tilemap2', 'tilemaps/tilemap2.json');
     }
 
     create()
