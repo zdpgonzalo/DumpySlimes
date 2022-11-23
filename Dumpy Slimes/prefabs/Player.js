@@ -7,7 +7,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         //Atributos...
         //...para la configuración en la escena
         this.size = 2;//Tamaño al que se escala el sprite
-        this.bounceGround = 0.8;//Fuerza de rebote al chocar con las plataformas
+        this.bounceX = 1;//Fuerza horizontal de rebote al chocar con las plataformas
+        this.bounceY = 0.8;//Fuerza vertical de rebote al chocar con las plataformas
         this.gravity = 600 * this.size;//Gravedad por defecto del jugador
         //...para el funcionamiento de los powerups
         this.state = 'normal';//Estado, se usa para cambiar los controles al usar powerups como cohete o confusión
@@ -41,7 +42,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.setScale(this.size);
         this.refreshBody();
         this.setCircle(12);
-        this.setBounce(this.bounceGround);
+        this.setBounce(this.bounceX, this.bounceY);
         this.setCollideWorldBounds(true);
         this.body.setGravityY(this.gravity);
         players.add(this);

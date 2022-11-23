@@ -48,8 +48,8 @@ class Play extends Phaser.Scene
         let cursors = this.input.keyboard.addKeys({'up': keys.UP, 'down': keys.DOWN, 'left': keys.LEFT, 'right': keys.RIGHT, 'power': keys.ENTER});
 
         //Creación de los jugadores
-        this.player1 = new Player(this, 100, 450, 'star', this.players, ground, wasd);
-        this.player2 = new Player(this, 700, 450, 'star', this.players, ground, cursors);
+        this.player1 = new Player(this, 200, arrayFixed.length * (map.tileHeight * scalingFactor) - 150, 'star', this.players, ground, wasd);
+        this.player2 = new Player(this, 600, arrayFixed.length * (map.tileHeight * scalingFactor) - 150, 'star', this.players, ground, cursors);
 
         //Testeo, es provisional
         //this.powerup = new PowerupBubble(this, 400, 100, 'star', this.players, 'bombTrap');

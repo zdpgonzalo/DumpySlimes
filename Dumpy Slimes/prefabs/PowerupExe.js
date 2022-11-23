@@ -47,7 +47,7 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
             player.state = 'normal';
             player.body.setGravityY(player.gravity);
             player.groundCollider.active = true;
-            player.setBounce(this.player.bounceGround);
+            player.setBounce(player.bounceX, player.bounceY);
         }, this.rocketTime);
     }
 
@@ -182,7 +182,7 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
             {
                 target = playerList[i];
                 target.body.setGravityY(target.gravity);
-                target.setBounce(target.bounceGround);
+                target.setBounce(target.bounceX, target.bounceY);
                 target.state = 'none'
             }
         }, this.expansionWaveTime);
