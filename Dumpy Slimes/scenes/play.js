@@ -18,7 +18,7 @@ class Play extends Phaser.Scene
 
         const map = this.make.tilemap({data:arrayFixed, tileWidth:70, tileHeight:70});
         const tileset = map.addTilesetImage('sheet', 'tiles');
-        let scalingFactor = (this.CONFIG.width * 0.5) / (tileset.tileWidth * (arrayFixed[0].length));
+        let scalingFactor = ((this.CONFIG.width - 60) * 0.5) / (tileset.tileWidth * (arrayFixed[0].length));
         let ground = map.createLayer('layer', tileset).setScale(scalingFactor);
         map.setCollisionBetween(0, 97);
         this.physics.world.TILE_BIAS = 32;
@@ -56,16 +56,64 @@ class Play extends Phaser.Scene
         //this.player2.powerups.push('rocket');
 
         //Creación de cámaras
-        this.physics.world.setBounds(0, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
+        this.physics.world.setBounds(0, 0, (this.CONFIG.width - 60) * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
 
-        this.cameras.main.setSize(this.CONFIG.width, this.CONFIG.height);
-        const camera2 = this.cameras.add(this.CONFIG.width * 0.5, 0, this.CONFIG.width, this.CONFIG.height);
+        this.cameras.main.setSize((this.CONFIG.width - 60), this.CONFIG.height);
+        const camera2 = this.cameras.add((this.CONFIG.width * 0.5) + 30, 0, (this.CONFIG.width - 60), this.CONFIG.height);
 
-        this.cameras.main.setBounds(0, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
-                  camera2.setBounds(0, 0, this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
+        this.cameras.main.setBounds(0, 0, this.CONFIG.width * 0.5 - 30, arrayFixed.length * (map.tileHeight * scalingFactor));
+                  camera2.setBounds(0, 0, this.CONFIG.width * 0.5 - 30, arrayFixed.length * (map.tileHeight * scalingFactor));
         
         this.cameras.main.startFollow(this.player1, true, 0.05, 0.05, true);
         camera2.startFollow(this.player2, true, 0.05, 0.05, true);
+
+        for(let i = 0; i < this.cameras.cameras.length; i++)
+        {
+            this.cameras.cameras[0].fadeIn(500, 0, 0, 0);
+        }
+
+        this.input.keyboard.enabled = false;
+        this.countdown = 3;
+        this.text = this.add.bitmapText(
+            this.CONFIG.centerX * 0.5, 
+            arrayFixed.length * (map.tileHeight * scalingFactor) * 0.5,
+            'click',
+            this.countdown.toString(),
+            64
+        ).setOrigin(0.5);
+        this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
+
+        this.divisor = this.add.rectangle(this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor) * 0.5, 60, arrayFixed.length * (map.tileHeight * scalingFactor), 0x6666ff);
+
+        //hacer el sistema de doble capa para colocar objetos y enemigos en el nivel
+        //cambiar la generación de niveles para que la cima y la base sean las mismas
+        //crear un json para la cima con 2 capas y hacer que haya una meta en el nivel (sin funcionalidad)
+        //añadir la funcionalidad de la meta, almacenando la posición de los jugadores pero sin fin de nivel
+        //escena de puntuación, guardado de puntos a lo largo de las rondas y transmisión de información entre escenas
+        //que ambos jugadores deban pulsar su botón de powerup para pasar a la siguiente ronda
+        //pantalla de ganador cuando un jugador gane 3 rondas
+
+        //funcionamiento correcto de powerups
+
+        //aspectos visuales y estéticos
+
+        //otros modos de juego si da tiempo
+    }
+
+    onEvent()
+    {
+        this.countdown--;
+        if(this.countdown == 0)
+        {
+            this.input.keyboard.enabled = true;
+        }
+        if(this.countdown == -1)
+        {
+            this.text.destroy();
+            this.timedEvent.remove(false);
+            return;
+        }
+        this.text.text = this.countdown.toString();
     }
 
     update(time, delta)

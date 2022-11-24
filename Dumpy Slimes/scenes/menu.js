@@ -42,6 +42,11 @@ class Menu extends Phaser.Scene
 
         // Crear input del Teclado
         this.createKeyboardInput();
+
+        // Cambio de escena cuando se completa el fade out en goPlay
+        this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
+            this.scene.start('Play');
+        })
     }
 
     createMouseInput()
@@ -66,6 +71,6 @@ class Menu extends Phaser.Scene
 
     goPlay()
     {
-        this.scene.start('Play');
+        this.cameras.main.fadeOut(500, 0, 0, 0);
     }
 }
