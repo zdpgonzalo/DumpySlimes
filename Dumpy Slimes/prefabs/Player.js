@@ -7,7 +7,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         //Atributos...
         //...para la configuración en la escena
         this.size = 2;//Tamaño al que se escala el sprite
-        this.bounceX = 1;//Fuerza horizontal de rebote al chocar con las plataformas
+        this.bounceX = 0.8;//Fuerza horizontal de rebote al chocar con las plataformas
         this.bounceY = 0.8;//Fuerza vertical de rebote al chocar con las plataformas
         this.gravity = 600 * this.size;//Gravedad por defecto del jugador
         //...para el funcionamiento de los powerups
