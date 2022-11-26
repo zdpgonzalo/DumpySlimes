@@ -25,7 +25,7 @@ class Goal extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.overlap(this, players, function(goal, player) {
             goal.playerOrder.push(player.id);
             player.destroy();
-            if(players.getChildren().length == 0)
+            if(players.getChildren().length == 1)
             {
                 goal.scene.scene.start('Score', {playerOrder: goal.playerOrder, playerOneScore: goal.scene.playerOneScore, playerTwoScore: goal.scene.playerTwoScore});
             }
