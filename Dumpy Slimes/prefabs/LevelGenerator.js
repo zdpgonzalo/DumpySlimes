@@ -12,7 +12,7 @@ class LevelGenerator {
             this.objectBlocks.push(this.jsonToMatrix(block, 1).slice(0));
         }
 
-        this.levelSize = 2;
+        this.levelSize = 5;
     }
 
     generateLevel()
