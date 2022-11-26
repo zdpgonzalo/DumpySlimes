@@ -1,46 +1,41 @@
-class Menu extends Phaser.Scene
+class Winner extends Phaser.Scene
 {
     constructor()
     {
-        super({key: 'Menu', active: false});
-
+        super({key: 'Winner', active: false});
     }
 
-    init()
+    init(data)
     {
         this.CONFIG = this.sys.game.CONFIG;
+        this.winner = data.winner;
     }
 
     preload()
     {
-
+        
     }
 
     create()
     {
-        // Título del juego
         this.title = this.add.bitmapText(
-            this.CONFIG.centerX, 
-            150,
-            'click',
-            'Dumpy Slimes',
-            64
-        ).setOrigin(0.5);
-
-        // Texto de haz click para jugar
-        this.text = this.add.bitmapText(
             this.CONFIG.centerX, 
             this.CONFIG.centerY,
             'click',
-            'Play',
+            this.winner.toString() + ' is the winner!',
             64
+        ).setOrigin(0.5);
+
+        this.title = this.add.bitmapText(
+            this.CONFIG.centerX, 
+            this.CONFIG.centerY + 200,
+            'click',
+            'Click for rematch',
+            48
         ).setOrigin(0.5);
 
         // Crear input del Ratón
         this.createMouseInput();
-
-        // Crear input del Teclado
-        this.createKeyboardInput();
 
         // Cambio de escena cuando se completa el fade out en goPlay
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
@@ -51,21 +46,6 @@ class Menu extends Phaser.Scene
     createMouseInput()
     {
         this.input.on('pointerup', this.goPlay, this);
-    }
-
-    createKeyboardInput()
-    {
-        function handleKeyUp(e)
-        {
-            switch(e.code)
-            {
-                case 'Enter':
-                    this.goPlay();
-                    break;
-            }
-        }
-
-        this.input.keyboard.on('keyup', handleKeyUp, this);
     }
 
     goPlay()

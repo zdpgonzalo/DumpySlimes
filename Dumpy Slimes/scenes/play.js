@@ -5,9 +5,11 @@ class Play extends Phaser.Scene
         super({key: 'Play', active: false});
     }
 
-    init()
+    init(data)
     {
         this.CONFIG = this.sys.game.CONFIG;
+        this.playerOneScore = data.playerOneScore;
+        this.playerTwoScore = data.playerTwoScore;
     }
 
     create()
@@ -109,10 +111,9 @@ class Play extends Phaser.Scene
         //cambiar la generación de niveles para que la cima y la base sean las mismas
         //crear un json para la cima con 2 capas y hacer que haya una meta en el nivel (sin funcionalidad)
         //añadir la funcionalidad de la meta, almacenando la posición de los jugadores pero sin fin de nivel
-        //----------------------------------
         //escena de puntuación, guardado de puntos a lo largo de las rondas y transmisión de información entre escenas
-        //que ambos jugadores deban pulsar su botón de powerup para pasar a la siguiente ronda
         //pantalla de ganador cuando un jugador gane 3 rondas
+        //----------------------------------
 
         //funcionamiento correcto de powerups
 
