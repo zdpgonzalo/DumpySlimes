@@ -1,10 +1,12 @@
 class Player extends Phaser.Physics.Arcade.Sprite {
-    constructor(scene, x, y, sprite, players, ground, controls) 
+    constructor(scene, x, y, sprite, players, ground, controls, id) 
     {
         //Constructor del padre
         super(scene, x, y, sprite);
 
         //Atributos...
+        //...para la identificación
+        this.id = id;
         //...para la configuración en la escena
         this.size = 2;//Tamaño al que se escala el sprite
         this.bounceX = 0.8;//Fuerza horizontal de rebote al chocar con las plataformas
@@ -62,9 +64,13 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         });
         //...entre el jugador y las plataformas
         this.groundCollider = scene.physics.add.collider(this, ground, function(player, ground) {
-            if(player.body.touching.up)
+            if(player.body.blocked.up)
             {
                 player.body.setGravityY(player.gravity);
+            }
+            if(player.body.blocked.down && player.controls.down.isDown)
+            {
+                player.setVelocityX(0);
             }
         });
     }
