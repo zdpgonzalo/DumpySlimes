@@ -12,17 +12,6 @@ class Play extends Phaser.Scene
 
     create()
     {
-        //Creación del nivel
-        let levelGenerator = new LevelGenerator(this);
-        let arrayFixed = levelGenerator.generateLevel();
-
-        const map = this.make.tilemap({data:arrayFixed, tileWidth:70, tileHeight:70});
-        const tileset = map.addTilesetImage('sheet', 'tiles');
-        let scalingFactor = ((this.CONFIG.width - 60) * 0.5) / (tileset.tileWidth * (arrayFixed[0].length));
-        let ground = map.createLayer('layer', tileset).setScale(scalingFactor);
-        map.setCollisionBetween(0, 97);
-        this.physics.world.TILE_BIAS = 32;
-
         //Creación de grupos
         this.players = this.add.group({
             classType: Player,
@@ -42,27 +31,58 @@ class Play extends Phaser.Scene
             runChildUpdate: true
         });
 
+        //Creación del nivel
+        let levelGenerator = new LevelGenerator(this);
+        let platformArray = levelGenerator.generateLevel();
+        let objectArray = levelGenerator.generateObjects();
+
+        //Creación de las platafromas
+        const map = this.make.tilemap({data:platformArray, tileWidth:70, tileHeight:70});
+        const tileset = map.addTilesetImage('sheet', 'tiles');
+        let scalingFactor = ((this.CONFIG.width - 60) * 0.5) / (tileset.tileWidth * (platformArray[0].length));
+        let ground = map.createLayer('layer', tileset).setScale(scalingFactor);
+        map.setCollisionBetween(0, 97);
+        this.physics.world.TILE_BIAS = 32;
+
+        //Creación de los objetos
+        for(let i = 0; i < objectArray.length; i++)
+        {
+            for(let j = 0; j < objectArray[0].length; j++)
+            {
+                switch(objectArray[i][j])
+                {
+                    case 0:
+                        this.goal = new Goal(this, j * (map.tileHeight * scalingFactor), i * (map.tileHeight * scalingFactor), 'star', this.players);
+                        break;
+                }
+            }
+        }
+
+        //Alto y ancho del nivel
+        this.levelHeight = platformArray.length * (map.tileHeight * scalingFactor);
+        this.levelWidth = (this.CONFIG.width - 60) * 0.5;
+
         //Creación de los controles que se asignarán a cada jugador
         let keys = Phaser.Input.Keyboard.KeyCodes;
         let wasd = this.input.keyboard.addKeys({'up': keys.W, 'down': keys.S, 'left': keys.A, 'right': keys.D, 'power': keys.SPACE});
         let cursors = this.input.keyboard.addKeys({'up': keys.UP, 'down': keys.DOWN, 'left': keys.LEFT, 'right': keys.RIGHT, 'power': keys.ENTER});
 
         //Creación de los jugadores
-        this.player1 = new Player(this, 200, arrayFixed.length * (map.tileHeight * scalingFactor) - 150, 'star', this.players, ground, wasd);
-        this.player2 = new Player(this, 600, arrayFixed.length * (map.tileHeight * scalingFactor) - 150, 'star', this.players, ground, cursors);
+        this.player1 = new Player(this, 200, this.levelHeight - 150, 'star', this.players, ground, wasd, '01');
+        this.player2 = new Player(this, 600, this.levelHeight - 150, 'star', this.players, ground, cursors, '02');
 
         //Testeo, es provisional
         //this.powerup = new PowerupBubble(this, 400, 100, 'star', this.players, 'bombTrap');
         //this.player2.powerups.push('rocket');
 
         //Creación de cámaras
-        this.physics.world.setBounds(0, 0, (this.CONFIG.width - 60) * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor));
+        this.physics.world.setBounds(0, 0, this.levelWidth, this.levelHeight);
 
         this.cameras.main.setSize((this.CONFIG.width - 60), this.CONFIG.height);
         const camera2 = this.cameras.add((this.CONFIG.width * 0.5) + 30, 0, (this.CONFIG.width - 60), this.CONFIG.height);
 
-        this.cameras.main.setBounds(0, 0, this.CONFIG.width * 0.5 - 30, arrayFixed.length * (map.tileHeight * scalingFactor));
-                  camera2.setBounds(0, 0, this.CONFIG.width * 0.5 - 30, arrayFixed.length * (map.tileHeight * scalingFactor));
+        this.cameras.main.setBounds(0, 0, this.levelWidth, this.levelHeight);
+                  camera2.setBounds(0, 0, this.levelWidth, this.levelHeight);
         
         this.cameras.main.startFollow(this.player1, true, 0.05, 0.05, true);
         camera2.startFollow(this.player2, true, 0.05, 0.05, true);
@@ -75,20 +95,21 @@ class Play extends Phaser.Scene
         this.input.keyboard.enabled = false;
         this.countdown = 3;
         this.text = this.add.bitmapText(
-            this.CONFIG.centerX * 0.5, 
-            arrayFixed.length * (map.tileHeight * scalingFactor) * 0.5,
+            this.levelWidth * 0.5, 
+            this.levelHeight - this.CONFIG.height * 0.5,
             'click',
             this.countdown.toString(),
             64
         ).setOrigin(0.5);
         this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
 
-        this.divisor = this.add.rectangle(this.CONFIG.width * 0.5, arrayFixed.length * (map.tileHeight * scalingFactor) * 0.5, 60, arrayFixed.length * (map.tileHeight * scalingFactor), 0x6666ff);
+        this.divisor = this.add.rectangle(this.CONFIG.width * 0.5, this.levelHeight * 0.5, 60, this.levelHeight, 0x6666ff);
 
         //hacer el sistema de doble capa para colocar objetos y enemigos en el nivel
         //cambiar la generación de niveles para que la cima y la base sean las mismas
         //crear un json para la cima con 2 capas y hacer que haya una meta en el nivel (sin funcionalidad)
         //añadir la funcionalidad de la meta, almacenando la posición de los jugadores pero sin fin de nivel
+        //----------------------------------
         //escena de puntuación, guardado de puntos a lo largo de las rondas y transmisión de información entre escenas
         //que ambos jugadores deban pulsar su botón de powerup para pasar a la siguiente ronda
         //pantalla de ganador cuando un jugador gane 3 rondas
