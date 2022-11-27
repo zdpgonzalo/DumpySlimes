@@ -3,7 +3,7 @@ class LevelGenerator {
     {
         this.platformBlocks = [];// Array donde se van a guardar los distintos bloques de plataformas
         this.objectBlocks = [];// Array donde se van a guardar los distintos bloques de objetos
-        this.tilemapIds = ['cima', 'tilemap1', 'tilemap2', 'base'];// Tilemaps
+        this.tilemapIds = ['cima', 'bloque06', 'bloque13', 'base'];// Tilemaps
         let block;
         for(let i = 0; i < this.tilemapIds.length; i++)// Se transfieren los json a los arrays, traduciéndolos a arrays para hacer una matrix
         {
@@ -12,7 +12,7 @@ class LevelGenerator {
             this.objectBlocks.push(this.jsonToMatrix(block, 1).slice(0));
         }
 
-        this.levelSize = 2;// Tamaño del nivel
+        this.levelSize = 4;// Tamaño del nivel
     }
 
     generateLevel()
