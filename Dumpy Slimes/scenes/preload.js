@@ -28,6 +28,26 @@ class Preload extends Phaser.Scene
         this.load.json('tilemap1', 'tilemaps/tilemap1.json');
         this.load.json('tilemap2', 'tilemaps/tilemap2.json');
         this.load.json('base', 'tilemaps/base.json');
+        this.load.json('bloque01', 'tilemaps/bloque01.json');
+        this.load.json('bloque02', 'tilemaps/bloque02.json');
+        this.load.json('bloque03', 'tilemaps/bloque03.json');
+        this.load.json('bloque04', 'tilemaps/bloque04.json');
+        this.load.json('bloque05', 'tilemaps/bloque05.json');
+        this.load.json('bloque06', 'tilemaps/bloque06.json');
+        this.load.json('bloque07', 'tilemaps/bloque07.json');
+        this.load.json('bloque08', 'tilemaps/bloque08.json');
+        this.load.json('bloque09', 'tilemaps/bloque09.json');
+        this.load.json('bloque10', 'tilemaps/bloque10.json');
+        this.load.json('bloque11', 'tilemaps/bloque11.json');
+        this.load.json('bloque12', 'tilemaps/bloque12.json');
+        this.load.json('bloque13', 'tilemaps/bloque13.json');
+        this.load.json('bloque14', 'tilemaps/bloque14.json');
+        this.load.json('bloque15', 'tilemaps/bloque15.json');
+        this.load.json('bloque16', 'tilemaps/bloque16.json');
+        this.load.json('bloque17', 'tilemaps/bloque17.json');
+        this.load.json('bloque18', 'tilemaps/bloque18.json');
+        this.load.json('bloque19', 'tilemaps/bloque19.json');
+        this.load.json('bloque20', 'tilemaps/bloque20.json');
     }
 
     create()
