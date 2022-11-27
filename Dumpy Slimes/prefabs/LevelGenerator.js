@@ -1,76 +1,58 @@
 class LevelGenerator {
     constructor(scene)
     {
-        this.platformBlocks = [];
-        this.objectBlocks = [];
-        this.tilemapIds = ['cima', 'tilemap1', 'tilemap2', 'base'];
+        this.platformBlocks = [];// Array donde se van a guardar los distintos bloques de plataformas
+        this.objectBlocks = [];// Array donde se van a guardar los distintos bloques de objetos
+        this.tilemapIds = ['cima', 'tilemap1', 'tilemap2', 'base'];// Tilemaps
         let block;
-        for(let i = 0; i < this.tilemapIds.length; i++)
+        for(let i = 0; i < this.tilemapIds.length; i++)// Se transfieren los json a los arrays, traduciéndolos a arrays para hacer una matrix
         {
             block = scene.cache.json.get(this.tilemapIds[i]);
             this.platformBlocks.push(this.jsonToMatrix(block, 0).slice(0));
             this.objectBlocks.push(this.jsonToMatrix(block, 1).slice(0));
         }
 
-        this.levelSize = 5;
+        this.levelSize = 3;// Tamaño del nivel
     }
 
     generateLevel()
     {
         let platformArray = [];
-        let random;
-        let block;
-
-        block = this.platformBlocks[0];
-        for(let j = 0; j < block.length; j++)
-        {
-            platformArray.push(block[j]);
-        }
-        for(let i = 1; i < this.levelSize - 1; i++)
-        {
-            random = Math.floor(Math.random()*(this.platformBlocks.length - 2)) + 1;
-            block = this.platformBlocks[random];
-            for(let j = 0; j < block.length; j++)
-            {
-                platformArray.push(block[j]);
-            }
-        }
-        block = this.platformBlocks[this.platformBlocks.length - 1];
-        for(let j = 0; j < block.length; j++)
-        {
-            platformArray.push(block[j]);
-        }
-
-        return platformArray;
-    }
-
-    generateObjects()
-    {
         let objectArray = [];
+        let platformBlock;
+        let objectBlock;
         let random;
-        let block;
 
-        block = this.objectBlocks[0];
-        for(let j = 0; j < block.length; j++)
+        //Creación de la cima
+        platformBlock = this.platformBlocks[0];
+        objectBlock = this.objectBlocks[0];
+        for(let j = 0; j < platformBlock.length; j++)
         {
-            objectArray.push(block[j]);
+            platformArray.push(platformBlock[j]);
+            objectArray.push(objectBlock[j]);
         }
+        //Creación del nivel intermedio
         for(let i = 1; i < this.levelSize - 1; i++)
         {
             random = Math.floor(Math.random()*(this.platformBlocks.length - 2)) + 1;
-            block = this.objectBlocks[random];
-            for(let j = 0; j < block.length; j++)
+            platformBlock = this.platformBlocks[random];
+            objectBlock = this.objectBlocks[random];
+            for(let j = 0; j < platformBlock.length; j++)
             {
-                objectArray.push(block[j]);
+                platformArray.push(platformBlock[j]);
+                objectArray.push(objectBlock[j]);
             }
         }
-        block = this.objectBlocks[this.objectBlocks.length - 1];
-        for(let j = 0; j < block.length; j++)
+        //Creación de la base
+        platformBlock = this.platformBlocks[this.platformBlocks.length - 1];
+        objectBlock = this.objectBlocks[this.platformBlocks.length - 1];
+        for(let j = 0; j < platformBlock.length; j++)
         {
-            objectArray.push(block[j]);
+            platformArray.push(platformBlock[j]);
+            objectArray.push(objectBlock[j]);
         }
-        
-        return objectArray;
+
+        return {platforms: platformArray, objects: objectArray};
     }
 
     jsonToMatrix(json, layer)

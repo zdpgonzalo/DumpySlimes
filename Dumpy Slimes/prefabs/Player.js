@@ -19,13 +19,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.powerupExe = new PowerupExe(this);//Clase que se usa para ejecutar los powerups, es para tener el código separado
         this.rocketSpeed = this.speed * 3;
         this.rocketMaxMovementSpeed = this.maxMovementSpeed * 1.5;
-        this.rocketDrag = this.drag * 5;
+        this.rocketDrag = this.drag;
         //...para configurar los controles y el movimiento
         this.controls = controls;//Inputs de los controles
         this.speed = 0.5 * this.size;//Velocidad de aceleración al moverse
+        this.fallingSpeed = this.speed * 0.5;//Velocidad de acelerar la caida
         this.maxMovementSpeed = 125 * this.size;//Velocidad máxima al moverse
         this.maxBounceSpeed = this.maxMovementSpeed * 2;//Velocidad máxima al rebotar con otro jugador
-        this.drag = 0.04 * this.size;//Fuerza de rozamiento en el eje x
+        this.drag = 0.2 * this.size;//Fuerza de rozamiento en el eje x
         this.maxJumps = 1;//Saltos máximos consecutivos
         this.jumps = 1;//Saltos disponibles en cada momento
         this.jumpTimer;//Controla el tiempo que dura el salto
@@ -68,10 +69,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             {
                 player.body.setGravityY(player.gravity);
             }
-            if(player.body.blocked.down && player.controls.down.isDown)
-            {
-                player.setVelocityX(0);
-            }
         });
     }
 
@@ -82,7 +79,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         {
             case 'normal': //Movimiento normal
                 //Rozamiento
-                if (this.body.velocity.x != 0)
+                if (this.body.velocity.x != 0 && (this.controls.left.isUp && this.controls.right.isUp))
                 {
                     if (this.body.velocity.x > 0)
                     {
@@ -121,7 +118,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 {
                     if (this.body.velocity.y < this.maxMovementSpeed)
                     {
-                        this.body.velocity.y += this.speed * delta;
+                        this.body.velocity.y += this.fallingSpeed * delta;
                     }
                 }
 
@@ -178,7 +175,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 break;
             case 'intangible'://Igual que normal
                 //Rozamiento
-                if (this.body.velocity.x != 0)
+                if (this.body.velocity.x != 0 && (this.controls.left.isUp && this.controls.right.isUp))
                 {
                     if (this.body.velocity.x > 0)
                     {
@@ -217,7 +214,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 {
                     if (this.body.velocity.y < this.maxMovementSpeed)
                     {
-                        this.body.velocity.y += this.speed * delta;
+                        this.body.velocity.y += this.fallingSpeed * delta;
                     }
                 }
 
@@ -251,7 +248,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 break;
             case 'confusion': //Movimiento al estar confuso, controles invertidos
                 //Rozamiento
-                if (this.body.velocity.x != 0)
+                if (this.body.velocity.x != 0 && (this.controls.left.isUp && this.controls.right.isUp))
                 {
                     if (this.body.velocity.x > 0)
                     {
@@ -290,7 +287,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 {
                     if (this.body.velocity.y < this.maxMovementSpeed)
                     {
-                        this.body.velocity.y += this.speed * delta;
+                        this.body.velocity.y += this.fallingSpeed * delta;
                     }
                 }
 

@@ -19,20 +19,14 @@ class Menu extends Phaser.Scene
     create()
     {
         // Título del juego
-        this.title = this.add.bitmapText(
-            this.CONFIG.centerX, 
-            150,
-            'click',
-            'Dumpy Slimes',
-            64
-        ).setOrigin(0.5);
+        this.add.image(this.CONFIG.centerX, this.CONFIG.centerY * 0.75, 'logo').setScale(0.5);
 
         // Texto de haz click para jugar
         this.text = this.add.bitmapText(
             this.CONFIG.centerX, 
-            this.CONFIG.centerY,
+            this.CONFIG.centerY * 1.5,
             'click',
-            'Play',
+            'Haz Click Para Jugar',
             64
         ).setOrigin(0.5);
 
@@ -44,7 +38,7 @@ class Menu extends Phaser.Scene
 
         // Cambio de escena cuando se completa el fade out en goPlay
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            this.scene.start('Play', {playerOneScore: 0, playerTwoScore: 0});
+            this.scene.start('Play', {playerOneScore: 0, playerTwoScore: 0});// Empieza la partida con las puntuaciones a 0
         })
     }
 

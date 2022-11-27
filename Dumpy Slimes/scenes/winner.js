@@ -8,7 +8,7 @@ class Winner extends Phaser.Scene
     init(data)
     {
         this.CONFIG = this.sys.game.CONFIG;
-        this.winner = data.winner;
+        this.winner = data.winner; // Ganador de la partida
     }
 
     preload()
@@ -18,6 +18,7 @@ class Winner extends Phaser.Scene
 
     create()
     {
+        //Texto del ganador
         this.title = this.add.bitmapText(
             this.CONFIG.centerX, 
             this.CONFIG.centerY,
@@ -26,6 +27,7 @@ class Winner extends Phaser.Scene
             64
         ).setOrigin(0.5);
 
+        //Texto de revancha
         this.title = this.add.bitmapText(
             this.CONFIG.centerX, 
             this.CONFIG.centerY + 200,
@@ -39,7 +41,7 @@ class Winner extends Phaser.Scene
 
         // Cambio de escena cuando se completa el fade out en goPlay
         this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, (cam, effect) => {
-            this.scene.start('Play', {playerOneScore: 0, playerTwoScore: 0});
+            this.scene.start('Play', {playerOneScore: 0, playerTwoScore: 0});// Revancha
         })
     }
 

@@ -25,7 +25,7 @@ class Goal extends Phaser.Physics.Arcade.Sprite {
         scene.physics.add.overlap(this, players, function(goal, player) {
             goal.playerOrder.push(player.id);
             player.destroy();
-            if(players.getChildren().length == 1)
+            if(players.getChildren().length == 1)// Si todos los jugadores menos 1 han llegado a la meta se pasa a la escena de puntuación
             {
                 goal.scene.scene.start('Score', {playerOrder: goal.playerOrder, playerOneScore: goal.scene.playerOneScore, playerTwoScore: goal.scene.playerTwoScore});
             }

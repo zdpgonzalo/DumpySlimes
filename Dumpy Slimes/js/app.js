@@ -10,7 +10,7 @@ App.prototype.start = function()
 {
     'use strict';
 
-    // Escenas, modificar cada vez que se crea una Nueva Escena
+    // Escenas, hay que modificarlo cada vez que se crea una Nueva Escena
     let scenes = [];
 
     scenes.push(Boot);
@@ -28,7 +28,7 @@ App.prototype.start = function()
         width: 1500,
         height: 1280,
         scene: scenes,
-        backgroundColor: '0xF4CCA1',
+        backgroundColor: '0xFFC1D5',
         physics: {
             default: 'arcade',
             arcade: {
@@ -59,6 +59,8 @@ App.prototype.start = function()
     game.CONFIG = {
         width: config.width,
         height: config.height,
+        bridge: 60,
+        gameWidth: (config.width - 60) / 2,
         centerX: Math.round(0.5*config.width),
         centerY: Math.round(0.5*config.height),
         tile: 32

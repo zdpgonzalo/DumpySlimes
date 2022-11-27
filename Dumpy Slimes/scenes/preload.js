@@ -15,12 +15,14 @@ class Preload extends Phaser.Scene
         // Crear una Barra de Carga
         this.createLoadingBar();
 
-        // Spritesheets
+        // Assets
         // Ruta
         this.load.setPath('assets');
-        // Sprites
+        // Tilesheets
         this.load.image('tiles', 'tilesheets/sheet.png');
+        // Sprites
         this.load.image('star', 'sprites/star.png');
+        this.load.image('logo', 'sprites/logo.png');
         // Mapas
         this.load.json('cima', 'tilemaps/cima.json');
         this.load.json('tilemap1', 'tilemaps/tilemap1.json');
@@ -40,28 +42,27 @@ class Preload extends Phaser.Scene
 
     createLoadingBar()
     {
-        let myScene = this;
         // Título
         this.title = this.add.bitmapText(
-            myScene.CONFIG.centerX, 
-            175,
+            this.CONFIG.centerX, 
+            this.CONFIG.centerX * 0.5,
             'click',
             'Loading Game',
-            32
+            64
         ).setOrigin(0.5);
 
         // Texto de Carga
         this.txt_progress = this.add.bitmapText(
-            myScene.CONFIG.centerX, 
-            myScene.CONFIG.centerY - 20,
+            this.CONFIG.centerX, 
+            this.CONFIG.centerY,
             'click',
             'Loading...',
-            32
+            48
         ).setOrigin(0.5);
 
         // Barra de Carga
-        let x = 10;
-        let y = this.CONFIG.centerY + 5;
+        let x = this.CONFIG.centerX * 0.25;
+        let y = this.CONFIG.centerY * 1.1;
         
         this.progress = this.add.graphics({x: x, y: y});
         this.border = this.add.graphics({x: x, y: y});
@@ -73,7 +74,7 @@ class Preload extends Phaser.Scene
     onProgress(val)
     {
         // Ancho de la Barra de Carga
-        let w = this.CONFIG.width - 2*this.progress.x;
+        let w = this.CONFIG.width - 2 * this.progress.x;
         let h = 36;
 
         // Relleno de la Barra de Carga
