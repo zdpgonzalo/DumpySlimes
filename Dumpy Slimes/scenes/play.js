@@ -43,8 +43,8 @@ class Play extends Phaser.Scene
         let platformArray = level.platforms;
         let objectArray = level.objects;
         //...creación de las platafromas
-        const map = this.make.tilemap({data:platformArray, tileWidth:70, tileHeight:70}); //128
-        const tileset = map.addTilesetImage('sheet', 'tiles');
+        const map = this.make.tilemap({data:platformArray, tileWidth:128, tileHeight:128}); //128
+        const tileset = map.addTilesetImage('tilemap', 'tiles');
         let scalingFactor = (this.CONFIG.gameWidth) / (tileset.tileWidth * (platformArray[0].length)); // Factor por el que hay que escalar el mapa para que se ajuste al tamaño de la ventana de juego
         let ground = map.createLayer('layer', tileset).setScale(scalingFactor);
         map.setCollisionBetween(0, 97);
