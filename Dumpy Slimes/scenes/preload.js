@@ -48,6 +48,16 @@ class Preload extends Phaser.Scene
         this.load.json('bloque18', 'tilemaps/bloque18.json');
         this.load.json('bloque19', 'tilemaps/bloque19.json');
         this.load.json('bloque20', 'tilemaps/bloque20.json');
+        this.load.json('bloque21', 'tilemaps/bloque21.json');
+        this.load.json('bloque22', 'tilemaps/bloque22.json');
+        this.load.json('bloque23', 'tilemaps/bloque23.json');
+        this.load.json('bloque24', 'tilemaps/bloque24.json');
+        this.load.json('bloque25', 'tilemaps/bloque25.json');
+        this.load.json('bloque26', 'tilemaps/bloque26.json');
+        this.load.json('bloque27', 'tilemaps/bloque27.json');
+        this.load.json('bloque28', 'tilemaps/bloque28.json');
+        this.load.json('bloque29', 'tilemaps/bloque29.json');
+        this.load.json('bloque30', 'tilemaps/bloque30.json');
     }
 
     create()
