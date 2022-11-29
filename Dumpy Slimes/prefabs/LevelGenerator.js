@@ -1,0 +1,83 @@
+class LevelGenerator {
+    constructor(scene)
+    {
+        this.platformBlocks = [];// Array donde se van a guardar los distintos bloques de plataformas
+        this.objectBlocks = [];// Array donde se van a guardar los distintos bloques de objetos
+        this.tilemapIds = ['cima', 'bloque06', 'bloque13', 'base'];// Tilemaps
+        let block;
+        for(let i = 0; i < this.tilemapIds.length; i++)// Se transfieren los json a los arrays, traduciéndolos a arrays para hacer una matrix
+        {
+            block = scene.cache.json.get(this.tilemapIds[i]);
+            this.platformBlocks.push(this.jsonToMatrix(block, 0).slice(0));
+            this.objectBlocks.push(this.jsonToMatrix(block, 1).slice(0));
+        }
+
+        this.levelSize = 4;// Tamaño del nivel
+    }
+
+    generateLevel()
+    {
+        let platformArray = [];
+        let objectArray = [];
+        let platformBlock;
+        let objectBlock;
+        let random;
+
+        //Creación de la cima
+        platformBlock = this.platformBlocks[0];
+        objectBlock = this.objectBlocks[0];
+        for(let j = 0; j < platformBlock.length; j++)
+        {
+            platformArray.push(platformBlock[j]);
+            objectArray.push(objectBlock[j]);
+        }
+        //Creación del nivel intermedio
+        for(let i = 1; i < this.levelSize - 1; i++)
+        {
+            random = Math.floor(Math.random()*(this.platformBlocks.length - 2)) + 1;
+            platformBlock = this.platformBlocks[random];
+            objectBlock = this.objectBlocks[random];
+            for(let j = 0; j < platformBlock.length; j++)
+            {
+                platformArray.push(platformBlock[j]);
+                objectArray.push(objectBlock[j]);
+            }
+        }
+        //Creación de la base
+        platformBlock = this.platformBlocks[this.platformBlocks.length - 1];
+        objectBlock = this.objectBlocks[this.platformBlocks.length - 1];
+        for(let j = 0; j < platformBlock.length; j++)
+        {
+            platformArray.push(platformBlock[j]);
+            objectArray.push(objectBlock[j]);
+        }
+
+        return {platforms: platformArray, objects: objectArray};
+    }
+
+    jsonToMatrix(json, layer)
+    {
+        let width = json.layers[layer].width;
+        let array = json.layers[layer].data;
+        let out = [];
+        let row = [];
+        let value;
+
+        for (let i = 0; i < array.length; i++) {
+            row.push(array[i]);
+            if(row.length == width)
+            {
+                out.push(row.slice(0));
+                row = [];
+            }
+        }
+
+        for (let y = 0; y < out.length; y++) {
+            for (let x = 0; x < width; x++) {
+                out[y][x] -= 1;
+            }
+        }
+
+        return out;
+    }
+}
