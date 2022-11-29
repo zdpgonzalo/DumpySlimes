@@ -23,7 +23,7 @@ El estilo del juego es de tipo Cartoon, con colores suaves y formas redondeadas.
   <img src="https://user-images.githubusercontent.com/116154873/204617971-4435d107-9d64-41c4-8111-58c963c61766.jpeg" width="200" height="200" />
   <img src="https://user-images.githubusercontent.com/116154873/204617981-d3a9867a-8a18-41c4-ac3f-54185736edcd.jpeg" width="200" height="200" />
   <img src="https://user-images.githubusercontent.com/116154873/204617990-7acc9c5a-7d91-47f6-a223-c2a185484c86.jpeg" width="200" height="200" /> <br/>
-  <img src="https://user-images.githubusercontent.com/116154873/204618525-ad1882e4-b17a-40ba-b204-cb83d7ea132d.png" width="200" height="50" />
+  <img src="https://user-images.githubusercontent.com/116154873/204618525-ad1882e4-b17a-40ba-b204-cb83d7ea132d.png" width="400" height="150" />
 </p>
 
 
