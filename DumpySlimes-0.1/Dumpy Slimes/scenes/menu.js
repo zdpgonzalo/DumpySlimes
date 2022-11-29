@@ -23,16 +23,28 @@ class Menu extends Phaser.Scene
 
         // Botones
         this.newGame = this.add.sprite(this.CONFIG.centerX, this.CONFIG.centerY * 1.25, 'newGameButton').setInteractive().setScale(0.5);
-        this.settings = this.add.sprite(this.CONFIG.centerX, this.CONFIG.centerY * 1.45, 'settingsButton').setInteractive().setScale(0.5);
+        // Controles jugador 1
+        this.controles1 = this.add.bitmapText(
+            this.CONFIG.centerX - 300, 
+            this.CONFIG.centerY * 1.5,
+            'click',
+            'J1: WASD y Enter',
+            48
+        ).setOrigin(0.5);
+        // Texto jugador 2
+        this.controles2 = this.add.bitmapText(
+            this.CONFIG.centerX + 300, 
+            this.CONFIG.centerY * 1.5,
+            'click',
+            'J2: Flechas y Numpad 0',
+            48
+        ).setOrigin(0.5);
+
         let that = this;
         this.newGame.on('pointerdown', function () {
 
             this.setTexture('newGameButtonDark')
             that.goPlay();
-        });
-        this.settings.on('pointerdown', function () {
-
-            this.setTexture('settingsButtonDark');
         });
 
         // Cambio de escena cuando se completa el fade out en goPlay
