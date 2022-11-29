@@ -33,7 +33,7 @@ Una vez iniciado el juego, se enseña el menú del juego, desde el cual, se acce
   <img src="https://user-images.githubusercontent.com/116154873/204661097-f5051b96-fcb6-447f-b068-002064152856.png" width="700" heigth="700"/>
 
 </p>
-En el menú principal aparece el logo del juego y dos botones "New Game" y "Settings". El primero permite empezar la partida y el segundo sirve para modificar los ajustes de nuestro juego.
+En el menú principal aparece el logo del juego, el botón "New Game" que inicia una nueva partida y los controles de cada jugador.
 
 ## Pantalla de juego
 <p align="center">
