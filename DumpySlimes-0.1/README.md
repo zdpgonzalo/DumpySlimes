@@ -30,7 +30,8 @@ Una vez iniciado el juego, se enseña el menú del juego, desde el cual, se acce
 
 ## Menú principal
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/204654548-67bc64b9-b43c-4f3d-8096-3f2eaf3a7d81.png" width="700" heigth="700"/>
+  <img src="https://user-images.githubusercontent.com/116154873/204661097-f5051b96-fcb6-447f-b068-002064152856.png" width="700" heigth="700"/>
+
 </p>
 Imagen del menú del juego, donde se muestra el logo del videojuego, y los botones del menú.
 
