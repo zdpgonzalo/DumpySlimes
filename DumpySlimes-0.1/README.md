@@ -29,15 +29,26 @@ El estilo del juego es de tipo Cartoon, con colores suaves y formas redondeadas.
 Una vez iniciado el juego, se enseña el menú del juego, desde el cual, se accede a un lobby si la partida es online, y sino se inicia directamente la partida. En cada partida hay varias rondas, donde los jugadores han de pasarse los niveles, y tras la finalización de estos, se accede a un ranking donde se muestran los puntos de cada jugador. Si un jugador consigue todos los puntos necesarios, se muestra la pantalla de victoria.<br/>
 
 ## Menú principal
-![MenuPrincipalDS](https://user-images.githubusercontent.com/116154873/204654548-67bc64b9-b43c-4f3d-8096-3f2eaf3a7d81.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/116154873/204654548-67bc64b9-b43c-4f3d-8096-3f2eaf3a7d81.png" width="1000" heigth="1000"/>
+</p>
+Imagen del menú del juego, donde se muestra el logo del videojuego, y los botones del menú.
 
 ## Pantalla de juego
-![PantallaJuego](https://user-images.githubusercontent.com/116154873/204654571-a57bf616-12a6-42f6-8bc5-459ec433bd71.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/116154873/204654571-a57bf616-12a6-42f6-8bc5-459ec433bd71.png" width="1000" heigth="1000"/>
+</p>
+Pantalla dividida que muestra las cámaras de dos jugadores, uno que se mueve con WASD y espacio, y el otro con las flechas y el numpad 0. En la esquina superior izquierda se muestran los powerups de cada jugador.
 
 ## Pantalla de ranking
-![PantallaRanking](https://user-images.githubusercontent.com/116154873/204654916-87d38cbc-fb05-4104-bba2-0772d0c7a1c5.PNG)
-
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/116154873/204654916-87d38cbc-fb05-4104-bba2-0772d0c7a1c5.PNG" width="1000" heigth="1000"/>
+</p>
+Pantalla que muestra la puntuación de la ronda de cada uno de los jugadores de la partida.
 
 ## Pantalla de victoria
-![PantallaVictoria](https://user-images.githubusercontent.com/116154873/204654767-6e5271f6-42e5-45fe-b056-041f8d2e3103.PNG)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/116154873/204654767-6e5271f6-42e5-45fe-b056-041f8d2e3103.PNG" width="1000" heigth="1000"/>
+</p>
+Pantalla que muestra el ganador de la partida
 
