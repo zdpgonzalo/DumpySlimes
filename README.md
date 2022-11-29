@@ -23,13 +23,19 @@ El estilo del juego es de tipo Cartoon, con colores suaves y formas redondeadas.
 </p>
 
 ## Diagrama de navegación
-![image](https://user-images.githubusercontent.com/116154873/204639791-55dd86f2-5aa0-4d78-914f-fb376b897847.png)
+![image](https://user-images.githubusercontent.com/116154873/204655031-7999107d-e19b-4784-adb2-31b764751eb0.png)
 Una vez iniciado el juego, se enseña el menú del juego, desde el cual, se accede a un lobby si la partida es online, y sino se inicia directamente la partida. En cada partida hay varias rondas, donde los jugadores han de pasarse los niveles, y tras la finalización de estos, se accede a un ranking donde se muestran los puntos de cada jugador. Si un jugador consigue todos los puntos necesarios, se muestra la pantalla de victoria.<br/>
 
 ## Menú principal
+![MenuPrincipalDS](https://user-images.githubusercontent.com/116154873/204654548-67bc64b9-b43c-4f3d-8096-3f2eaf3a7d81.png)
 
 ## Pantalla de juego
+![PantallaJuego](https://user-images.githubusercontent.com/116154873/204654571-a57bf616-12a6-42f6-8bc5-459ec433bd71.png)
 
 ## Pantalla de ranking
+![PantallaRanking](https://user-images.githubusercontent.com/116154873/204654916-87d38cbc-fb05-4104-bba2-0772d0c7a1c5.PNG)
+
 
 ## Pantalla de victoria
+![PantallaVictoria](https://user-images.githubusercontent.com/116154873/204654767-6e5271f6-42e5-45fe-b056-041f8d2e3103.PNG)
+
