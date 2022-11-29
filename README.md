@@ -30,7 +30,7 @@ Una vez iniciado el juego, se enseña el menú del juego, desde el cual, se acce
 
 ## Menú principal
 ![MenuPrincipalDS](https://user-images.githubusercontent.com/116154873/204654548-67bc64b9-b43c-4f3d-8096-3f2eaf3a7d81.png)
-
+En el menú principal aparece el logo del juego y dos botones "New Game" y "Settings". El primero permite empezar la partida y el segundo sirve para modificar los ajustes de nuestro juego.
 ## Pantalla de juego
 ![PantallaJuego](https://user-images.githubusercontent.com/116154873/204654571-a57bf616-12a6-42f6-8bc5-459ec433bd71.png)
 
