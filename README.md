@@ -18,7 +18,10 @@ https://trello.com/b/2rsKGfLB/jergrupo-c <br/>
 
 ## Diseño del juego
 El estilo del juego es de tipo Cartoon, con colores suaves y formas redondeadas. Sus personajes son Slimes, que tienen colores básicos que representan a cada jugador, y tienen efecto para simular a un slime real. Además, sus escenarios están ambientados en la selva, con grandes árboles con enredaderas, y con plataformas de piedra.<br/>
-<img src="https://user-images.githubusercontent.com/116154873/204617325-be863d9c-cb9c-4313-8539-e71591f036a0.jpeg" width="200" height="400" />
+<img src="https://user-images.githubusercontent.com/116154873/204617325-be863d9c-cb9c-4313-8539-e71591f036a0.jpeg" width="200" height="200" />
+<img src="https://user-images.githubusercontent.com/116154873/204617971-4435d107-9d64-41c4-8111-58c963c61766.jpeg" width="200" height="200" />
+<img src="https://user-images.githubusercontent.com/116154873/204617981-d3a9867a-8a18-41c4-ac3f-54185736edcd.jpeg" width="200" height="200" />
+<img src="https://user-images.githubusercontent.com/116154873/204617990-7acc9c5a-7d91-47f6-a223-c2a185484c86.jpeg" width="200" height="200" />
 
 
 
