@@ -28,7 +28,7 @@ class Menu extends Phaser.Scene
             this.CONFIG.centerX - 300, 
             this.CONFIG.centerY * 1.5,
             'click',
-            'J1: WASD y Enter',
+            'J1: WASD y Espacio',
             48
         ).setOrigin(0.5);
         // Texto jugador 2
