@@ -36,8 +36,8 @@ En el menú principal aparece el logo del juego y dos botones "New Game" y "Sett
 En la pantalla de juego se desarrolla la partida en la cual pueden participar dos jugadores y está compuesta de 3 rondas. La pantalla de juego está dividida en dos para mostrar el mismo escenario para cada jugador, de esta manera cada uno puede ir a su ritmo. Las burbujas son power-ups que otorgan habilidades especiales a los jugadores si estos las cogen. La corona es la meta y el primer jugador que la alcance gana la ronda. El jugador con más rondas logradas es el vencedor.
 ## Pantalla de ranking
 ![PantallaRanking](https://user-images.githubusercontent.com/116154873/204654916-87d38cbc-fb05-4104-bba2-0772d0c7a1c5.PNG)
-
+En esta pantalla se muestra quien es el vencedor de la ronda.
 
 ## Pantalla de victoria
 ![PantallaVictoria](https://user-images.githubusercontent.com/116154873/204654767-6e5271f6-42e5-45fe-b056-041f8d2e3103.PNG)
-
+En esta pantalla se muestra quien es el vencedor de la partida.
