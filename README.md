@@ -33,7 +33,7 @@ Una vez iniciado el juego, se enseña el menú del juego, desde el cual, se acce
 En el menú principal aparece el logo del juego y dos botones "New Game" y "Settings". El primero permite empezar la partida y el segundo sirve para modificar los ajustes de nuestro juego.
 ## Pantalla de juego
 ![PantallaJuego](https://user-images.githubusercontent.com/116154873/204654571-a57bf616-12a6-42f6-8bc5-459ec433bd71.png)
-
+En la pantalla de juego se desarrolla la partida en la cual pueden participar dos jugadores y está compuesta de 3 rondas. La pantalla de juego está dividida en dos para mostrar el mismo escenario para cada jugador, de esta manera cada uno puede ir a su ritmo. Las burbujas son power-ups que otorgan habilidades especiales a los jugadores si estos las cogen. La corona es la meta y el primer jugador que la alcance gana la ronda. El jugador con más rondas logradas es el vencedor.
 ## Pantalla de ranking
 ![PantallaRanking](https://user-images.githubusercontent.com/116154873/204654916-87d38cbc-fb05-4104-bba2-0772d0c7a1c5.PNG)
 
