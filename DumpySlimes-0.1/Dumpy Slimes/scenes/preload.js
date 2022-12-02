@@ -15,12 +15,12 @@ class Preload extends Phaser.Scene
         // Crear una Barra de Carga
         this.createLoadingBar();
 
-        // Assets
-        // Ruta
+        // Assets...
+        //...ruta
         this.load.setPath('assets');
-        // Tilesheets
+        //...tilesheets
         this.load.image('tiles', 'tilesheets/Tilemap.png');
-        // Sprites
+        //...sprites generales
         this.load.image('star', 'sprites/star.png');
         this.load.image('logo', 'sprites/logo.png');
         this.load.image('newGameButton', 'sprites/New_Game_Button.png');
@@ -49,7 +49,7 @@ class Preload extends Phaser.Scene
         this.load.image('niebla', 'sprites/Efecto_Intangible.png');
         this.load.image('fondo', 'sprites/Bioma_Bosque_Final2.png');
         this.load.image('explosion', 'sprites/Explosion.png');
-        // Sprites jugadores
+        //...sprites jugadores
         this.load.image('derechaSueloRosa', 'sprites/rosa/img sprites arreglado/Go Derecha 2 Rosa.png');
         this.load.image('derechaSaltoRosa', 'sprites/rosa/img sprites arreglado/Salto.png');
         this.load.image('derechaCaidaRosa', 'sprites/rosa/img sprites arreglado/Salto 3.png');
@@ -62,8 +62,7 @@ class Preload extends Phaser.Scene
         this.load.image('izquierdaSueloAzul', 'sprites/azul/Img sprite corregido/Go izq 2 Azul.png');
         this.load.image('izquierdaSaltoAzul', 'sprites/azul/Img sprite corregido/Salto izq.png');
         this.load.image('izquierdaCaidaAzul', 'sprites/azul/Img sprite corregido/Salto 3 izq.png');
-
-        // Mapas
+        //...mapas
         this.load.json('cima', 'tilemaps/cima.json');
         this.load.json('bloque01', 'tilemaps/bloque01.json');
         this.load.json('bloque02', 'tilemaps/bloque02.json');
