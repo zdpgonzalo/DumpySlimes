@@ -1,15 +1,18 @@
-class PowerupBubble extends Phaser.Physics.Arcade.Sprite {//Burbujas que aparecen en el nivel y otorgan powerups
+class PowerupBubble extends Phaser.Physics.Arcade.Sprite {// Burbujas que aparecen en el nivel y otorgan powerups
     constructor(scene, x, y, players, direction)
     {
-        //Constructor del padre
+        // Constructor del padre
         super(scene, x, y, `burbujaDorada`);
 
-        //Atributos...
+        // Atributos...
         //...para la configuración en la escena
         this.size = 0.03;//Tamaño al que se escala el sprite
         this.speedX = scene.CONFIG.gameWidth * 0.1;// Velocidad de la burbuja al moverse por la escena
         this.speedY = this.speedX * 2.5;// Velocidad de oscilación
-        //...listas de powerups
+        //...generales
+        this.id = undefined;
+        this.initialY = y;
+        //...loot tables
         this.firstPowerups = [
             ['confusion', 'confusion', 'confusion', 'confusion', 'confusion', 'confusion', 'confusion', 'confusion', 'confusion', 'confusion'],
             ['expansiveWave', 'expansiveWave', 'expansiveWave', 'expansiveWave', 'expansiveWave', 'expansiveWave', 'expansiveWave', 'expansiveWave', 'expansiveWave', 'expansiveWave'],
@@ -34,10 +37,6 @@ class PowerupBubble extends Phaser.Physics.Arcade.Sprite {//Burbujas que aparece
             ['freeze', 'freeze', 'freeze', 'freeze', 'freeze', 'freeze', 'freeze', 'freeze', 'freeze', 'freeze'],
             ['freeze', 'freeze', 'freeze', 'freeze', 'freeze', 'freeze', 'freeze', 'freeze', 'freeze', 'freeze']
         ]
-        //...generales
-        this.id = undefined;
-        this.scene = scene;
-        this.initialY = y;
 
         //Configuración en la escena
         scene.sys.updateList.add(this);
