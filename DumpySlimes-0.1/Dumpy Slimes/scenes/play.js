@@ -60,15 +60,16 @@ class Play extends Phaser.Scene
         let level = this.levelGenerator.generateLevel();
         let platformArray = level.platforms;
         let objectArray = level.objects;
-        //...creación de las platafromas
-        const map = this.make.tilemap({data:platformArray, tileWidth:128, tileHeight:128}); //128
+        //...creación de las plataformas
+        const map = this.make.tilemap({data:platformArray, tileWidth:128, tileHeight:128});
         const tileset = map.addTilesetImage('tilemap', 'tiles');
-        let scalingFactor = (this.CONFIG.gameWidth) / (tileset.tileWidth * (platformArray[0].length)); // Factor por el que hay que escalar el mapa para que se ajuste al tamaño de la ventana de juego
-        let ground = map.createLayer('layer', tileset).setScale(scalingFactor);
+        let scalingFactor = this.CONFIG.gameWidth / (tileset.tileWidth * (platformArray[0].length)); // Factor por el que hay que escalar el mapa para que se ajuste al tamaño de la ventana de juego
+        let ground = map.createLayer('layer', tileset).setScale(scalingFactor); // Capa con las plataformas
         map.setCollisionBetween(0, 2);
         this.physics.world.TILE_BIAS = 32;
-        this.levelHeight = platformArray.length * (map.tileHeight * scalingFactor);// Altura del nivel
-        this.blockHeight = 24 * map.tileHeight * scalingFactor;
+        //...altura y anchura del nivel
+        this.levelHeight = platformArray.length * (map.tileHeight * scalingFactor); // Altura del nivel
+        this.blockHeight = 24 * map.tileHeight * scalingFactor; // Anchura del nivel
         //...creación de los objetos
         for(let i = 0; i < objectArray.length; i++)
         {
