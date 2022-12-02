@@ -1,4 +1,4 @@
-class PowerupBubble extends Phaser.Physics.Arcade.Sprite {// Burbujas que aparecen en el nivel y otorgan powerups
+class PowerupBubble extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, players, direction)
     {
         // Constructor del padre
@@ -6,12 +6,11 @@ class PowerupBubble extends Phaser.Physics.Arcade.Sprite {// Burbujas que aparec
 
         // Atributos...
         //...para la configuración en la escena
-        this.size = 0.03;//Tamaño al que se escala el sprite
-        this.speedX = scene.CONFIG.gameWidth * 0.1;// Velocidad de la burbuja al moverse por la escena
-        this.speedY = this.speedX * 2.5;// Velocidad de oscilación
+        this.size = 0.03; //Tamaño al que se escala el sprite
+        this.speedX = scene.CONFIG.gameWidth * 0.1; // Velocidad de la burbuja al moverse por la escena
+        this.speedY = this.speedX * 2.5; // Velocidad de oscilación
         //...generales
-        this.id = undefined;
-        this.initialY = y;
+        this.initialY = y; // Posición en el eje Y inicial
         //...loot tables
         this.firstPowerups = [
             ['confusion', 'confusion', 'confusion', 'confusion', 'confusion', 'confusion', 'confusion', 'confusion', 'confusion', 'confusion'],
@@ -50,12 +49,12 @@ class PowerupBubble extends Phaser.Physics.Arcade.Sprite {// Burbujas que aparec
 
         //Colliders...
         //...entre jugadores y PowerupBubble
-        this.playerOverlap = scene.physics.add.overlap(this, players, function(powerup, player) {
+        this.playerOverlap = scene.physics.add.overlap(this, players, function(bubble, player) {
             if(player.powerups.length < 2)
             {
-                player.grabPowerup(powerup.createPowerup(player));
+                player.grabPowerup(bubble.createPowerup(player)); // Otorga un powerup al jugador
             }
-            powerup.destroy();
+            bubble.destroy();
         });
     }
 
@@ -75,7 +74,7 @@ class PowerupBubble extends Phaser.Physics.Arcade.Sprite {// Burbujas que aparec
         }
     }
 
-    createPowerup(player)
+    createPowerup(player) // Escoje un powerup random de la loot table correspondiente a la posición del jugador
     {
         let randomX = Math.floor(Math.random() * 10);
         let randomY = Math.floor(Math.random() * 10);
