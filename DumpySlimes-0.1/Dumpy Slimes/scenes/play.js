@@ -29,12 +29,6 @@ class Play extends Phaser.Scene
             maxSize: 1000,
             runChildUpdate: true
         });
-        //...de cubos de hielo
-        this.freezeCubes = this.add.group({
-            classType: FreezeCube,
-            maxSize: 1000,
-            runChildUpdate: true
-        });
         //...de bombas
         this.bombs = this.add.group({
             classType: BombTrap,
@@ -88,9 +82,10 @@ class Play extends Phaser.Scene
         this.divisor = this.add.rectangle(this.CONFIG.width * 0.5, this.levelHeight * 0.5, 60, this.levelHeight, 0xF74780);
 
         // Fondo
-        for(let i = 0; i * 1204 < this.levelHeight; i++)
+        let imgHeight = this.textures.get('fondo').getSourceImage().height;
+        for(let i = 0; i * imgHeight < this.levelHeight; i++)
         {
-            this.add.image(0, i * 1204, 'fondo').setOrigin(0, 0).setDepth(-10);
+            this.add.image(0, i * imgHeight, 'fondo').setOrigin(0, 0).setDepth(-10);
         }
 
         // Creación de los controles que se asignarán a cada jugador
@@ -138,6 +133,9 @@ class Play extends Phaser.Scene
             64
         ).setOrigin(0.5);
         this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
+
+        this.player1.powerups.push('freeze');
+        this.player1.powerups.push('freeze');
     }
 
     onEvent() // Lógica de la cuenta atrás
