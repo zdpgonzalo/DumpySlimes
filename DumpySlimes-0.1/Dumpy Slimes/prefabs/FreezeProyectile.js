@@ -29,7 +29,7 @@ class FreezeProyectile extends Phaser.Physics.Arcade.Sprite {
             proyectile.touch = true;
         });
         //...entre el proyectil y los bordes de la escena
-        this.borderCollider = player.scene.physics.world.on('worldbounds', function(body){
+        this.borderCollider = this.scene.physics.world.on('worldbounds', function(body){
             body.gameObject.destroy();
         });
     }
@@ -45,13 +45,10 @@ class FreezeProyectile extends Phaser.Physics.Arcade.Sprite {
 
     freeze()
     {
-        if(this.target.state == 'normal' || this.target.state == 'confusion' || this.target.state == 'launched' || this.target.state == 'freeze')
+        if(this.target.state == 'normal' || this.target.state == 'doubleJump' || this.target.state == 'freeze' || this.target.state == 'confusion' || this.target.state == 'launched')
         {
-            if(this.target.ice != undefined)
-            {
-                this.target.ice.destroy();
-            }
-            this.target.ice = new FreezeCube(this.target);
+            this.target.powerupExe.resetState(this.target);
+            this.target.powerupExe.changeState(this.target, 'freeze');
         }
         this.destroy();
     }

@@ -45,10 +45,6 @@ class BombTrap extends Phaser.Physics.Arcade.Sprite {
             collisionTiles: [0,1,2] //array of tiles types which can collide with ray
         });
         this.intersections = this.ray.castCircle();
-        //...crea los gráficos que se usan para testear el raycaster
-        this.graphics = this.scene.add.graphics({ 
-            lineStyle: { width: 1, color: 0x00ff00}, fillStyle: { color: 0xffffff, alpha: 0.3 } 
-        });
 
         //Colliders/overlaps...
         //...variable que se usa para acceder a la clase dentro de las funciones
@@ -68,21 +64,17 @@ class BombTrap extends Phaser.Physics.Arcade.Sprite {
             });
             that.ray.enablePhysics();
             that.ray.autoSlice = true;
+            that.ray.setCollisionRange(that.explosionRange);
             that.detection.active = false;
         }, this.ray.processOverlap.bind(this.ray));
         //...comprueba si ha habido una colisión con un jugador o con una plataforma, en cuyo caso explota
         this.playerOverlap = this.scene.physics.add.overlap(this, this.filterList(this.user), function(bomb, target){
-            that.explode();
+            bomb.explode();
         });
     }
 
     update(time, delta)
     {
-        //actualiza la posición desde la que el raycaster lanza rayos
-        this.ray.origin.x = this.x;
-        this.ray.origin.y = this.y;
-        //Código para debuggear el raycaster
-            //this.draw(this.graphics, this.intersections);
         //distintos comportamientos según el estado
         switch(this.state)
         {
@@ -103,26 +95,10 @@ class BombTrap extends Phaser.Physics.Arcade.Sprite {
         }
     }
 
-    draw(graphics, intersections) //dibuja los rayos del raycast, es para hacer testeo
-    {
-        graphics.clear();
-        graphics.fillStyle(0xffffff, 0.3);
-        graphics.fillPoints(intersections);
-        for(let intersection of intersections) {
-          graphics.strokeLineShape({
-            x1: this.ray.origin.x,
-            y1: this.ray.origin.y,
-            x2: intersection.x,
-            y2: intersection.y
-          });
-        }
-        graphics.fillStyle(0xff00ff);
-        graphics.fillPoint(this.ray.origin.x, this.ray.origin.y, 3);
-    }
-
     explode()//la bomba explota, lanzando por los aires a los jugadores que se encuentren dentro del radio de su explosión
     {
-        this.ray.setCollisionRange(this.explosionRange);
+        this.ray.origin.x = this.x;
+        this.ray.origin.y = this.y;
         this.ray.castCircle();
         let playerList = this.ray.overlap(this.filterList(this.user));
         let target;
@@ -136,7 +112,7 @@ class BombTrap extends Phaser.Physics.Arcade.Sprite {
             target = playerList[i];
             if(target.state != 'rocket' && target.state != 'intangible' && target.state != 'freeze')
             {
-                target.powerupExe.launched(target, this, this.launchedTime);
+                target.powerupExe.launch(target, this, this.launchedTime);
             }
         }
         this.state = 'exploded';

@@ -18,7 +18,7 @@ class Goal extends Phaser.Physics.Arcade.Sprite {
         this.setOrigin(0, 0);
         this.setScale(this.size);
         this.refreshBody();
-        this.setCircle(75);
+        this.setCircle(scene.textures.get('meta').getSourceImage().width * 0.5);
 
         // Colliders...
         //...entre jugadores y la meta

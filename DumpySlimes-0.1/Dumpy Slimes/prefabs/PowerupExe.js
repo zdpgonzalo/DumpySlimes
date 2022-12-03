@@ -11,6 +11,8 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         this.intangibleTime = 4000;//Duración
         //DoubleJump
         this.doubleJumpTime = 10000;//Duración
+        //Freeze
+        this.stun = 15;
         //Confusion
         this.confusionTime = 8000;//Duración
         //Missile
@@ -20,61 +22,85 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         //Fuerza de los lanzamientos
         this.launchedForce = 1000;//Fuerza de la onda expansiva
         this.intangibletimer;
-        this.launchTimer;
         this.doubleJumpTimer;
         this.confusionTimer;
+        this.launchTimer;
+
+        // Colliders...
+        //...entre el cohete y otro jugador
+        this.rocketCollider = player.scene.physics.add.overlap(player, player.group, function(rocket, player) {
+            if(target.state != 'rocket' && target.state != 'intangible' && target.state != 'freeze')
+            {
+                player.powerupExe.launched(player, rocket, player.powerupExe.rocketLaunchTime);
+            }
+        });
+        this.rocketCollider.active = false;
     }
 
     update(time, delta)//Comprueba el estado del jugador, y según este ejecuta cierto código
     {
-        switch(this.player.state)
+        // Intangible
+        this.player.mist.setPosition(this.player.x, this.player.y);
+        if(this.player.state == 'intangible')
         {
-            case 'rocket':
-                this.player.setVelocityY(this.rocketSpeed);
-                break;
+            this.player.mist.setTexture('niebla');
+        }
+        else
+        {
+            this.player.mist.setTexture('none');
+        }
+        // Confusión
+        this.player.confusion.setPosition(this.player.x, this.player.y - 800 * this.player.size);
+        if(this.player.confused)
+        {
+            this.player.confusion.setTexture('interrogación');
+        }
+        else
+        {
+            this.player.confusion.setTexture('none');
+        }
+        // Helado
+        this.player.ice.setPosition(this.player.x, this.player.y);
+        if(this.player.state == 'freeze')
+        {
+            this.player.ice.setTexture('frozenEffect');
+        }
+        else
+        {
+            this.player.ice.setTexture('none');
         }
     }
 
     rocket(player) //convierte al slime en un cohete que asciende a gran velocidad atravesando plataformas y golpeando a jugadores, y que el jugador puede mover de izquierda a derecha
     {
-        player.state = 'rocket';
-        player.alpha = 1;
-        player.body.setGravityY(0);
-        player.setVelocityX(0);
-        player.setBounce(0);
-        player.groundCollider.active = false;
-        player.setImmovable(true);
+        this.resetState(player);
+        this.changeState(player, 'rocket');
 
-        clearTimeout(this.intangibleTimer);
+        let that = this;
         setTimeout(function()
-        { 
-            player.state = 'normal';
-            player.body.setGravityY(player.gravity);
-            player.groundCollider.active = true;
-            player.setBounce(player.bounceX, player.bounceY);
-            player.setImmovable(false);
+        {
+            that.resetState(player);
         }, this.rocketTime);
     }
 
     intangible(player) //hace que el slime no colisione con otros jugadores y que no pueda ser afectado por sus powerups
     {
-        player.state = 'intangible';
-        player.alpha = 0.5;
-        player.mist.setTexture('niebla');
+        this.resetState(player);
+        this.changeState(player, 'intangible');
 
-        clearTimeout(this.intangibleTimer);
-        this.timer = setTimeout(function()
+        let that = this;
+        this.intangibleTimer = setTimeout(function()
         { 
-            player.state = 'normal';
-            player.alpha = 1;
+            that.resetState(player);
         }, this.intangibleTime);
     }
 
     doubleJump(player) //otorga doble salto durante un tiempo
     {
-        player.maxJumps = 2;
-        player.jumps = 2;
-        clearTimeout(this.doubleJumpTimer);
+        this.resetState(player);
+        this.changeState(player, 'doubleJump');
+
+        let that = this;
         this.doubleJumpTimer = setTimeout(function()
         { 
             player.maxJumps = 1;
@@ -82,22 +108,32 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }, this.doubleJumpTime);
     }
 
-    freeze(player) //congela al jugador en pantalla que esté más alto
+    freeze(player) //lanza un proyectil que congela al jugador en pantalla que esté más alto
     {
         let playerList = this.filterList(player);
 
-        let target = playerList[0];
-        for(let i = 1; i < playerList.length; i++)
+        let target = player;
+        for(let i = 0; i < playerList.length; i++)
         {
             if(playerList[i].y < target.y)
             {
                 target = playerList[i];
             }
         }
-
-        if(target != null)
+        
+        if(target != null && target != player)
         {
             player.scene.freezeProyectiles.add(new FreezeProyectile(player, target));
+        }
+    }
+
+    breakIce(player) //código que maneja que el jugador congelado se descongele
+    {
+        this.stun--;
+        if(this.stun <= 0)
+        {
+            this.resetState(player);
+            this.stun = 15;
         }
     }
 
@@ -111,10 +147,11 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         {
             random = Math.floor(Math.random()*playerList.length);
             target = playerList[random];
-            if(target.powerups.length > 0 && (target.state != 'intangible' && target.state != 'rocket'))
+            if (target.powerups.length > 0 && (target.state != 'intangible' && target.state != 'rocket'))
             {
                 powerup = target.powerups[0];
                 target.powerups.splice(0, 1);
+                player.grabPowerup(powerup);
                 let thief = player.scene.physics.add.sprite(target.x, target.y, 'ladrón').setScale(0.2);
                 let sprite;
                 switch(powerup)
@@ -153,7 +190,6 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
                     y: { value: '-=200', duration: 2000, ease: 'Power2' },
                     alpha: { value: 0, duration: 2200, ease: 'Power2' }
                 });
-                player.grabPowerup(powerup);
                 setTimeout(function()
                 { 
                     thief.destroy();
@@ -173,22 +209,17 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         let playerList = this.filterList(player);
         for(let i = 0; i < playerList.length; i++)
         {
-            if(playerList[i].state != 'rocket' && playerList[i].state != 'intangible' && playerList[i].state != 'launched')
+            if (playerList[i].state != 'rocket' && playerList[i].state != 'intangible')
             {
-                playerList[i].state = 'confusion';
-                playerList[i].confusion.setTexture('interrogación');
+                playerList[i].confused = true;
             }
         }
 
-        clearTimeout(this.confusionTimer);
         this.confusionTimer = setTimeout(function()
         { 
             for(let i = 0; i < playerList.length; i++)
             {
-                if(playerList[i].state == 'confusion')
-                {
-                    playerList[i].state = 'normal';
-                }
+                playerList[i].confused = false;
             }
         }, this.confusionTime);
     }
@@ -216,9 +247,9 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
             x = target.x - player.x;
             y = target.y - player.y;
             distance = new Phaser.Math.Vector2(x, y).length();
-            if(distance <= 900)
+            if (distance <= 900 && (target.state != 'rocket' && target.state != 'intangible' && target.state != 'freeze'))
             {
-                target.powerupExe.launched(target, player, this.expansiveWaveTime);
+                target.powerupExe.launch(target, player, this.expansiveWaveTime);
             }
         }
         let explosion = player.scene.physics.add.sprite(player.x, player.y, 'explosion').setScale(5);
@@ -232,24 +263,20 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         }, this.expansiveWaveTime);
     }
 
-    launched(player, source, launchedTime)
+    launch(player, source, launchedTime)
     {
-        
+        this.resetState(player);
+        this.changeState(player, 'launched');
         let x = player.x - source.x;
         let y = player.y - source.y;
         let direction = new Phaser.Math.Vector2(x, y).normalize();
         player.setVelocityX(this.launchedForce * direction.x);
         player.setVelocityY(this.launchedForce * direction.y);
-        player.body.setGravityY(0);
-        player.setBounce(1);
-        player.state = 'launched'
 
         clearTimeout(this.launchTimer);
         this.launchTimer = setTimeout(function()
         {
-            player.body.setGravityY(player.gravity);
-            player.setBounce(player.bounceX, player.bounceY);
-            player.state = 'normal'
+            this.resetState(player);
         }, launchedTime);
     }
 
@@ -259,11 +286,66 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
         let playerList = player.group.getChildren();
         for(let i = 0; i < playerList.length; i++)
         {
-            if(playerList[i] != player && playerList[i].state != 'intangible')
+            if (playerList[i] != player && playerList[i].state != 'intangible')
             {
                 filteredList.push(playerList[i]);
             }
         }
         return filteredList;
+    }
+
+    resetState(player)
+    {
+        player.state = 'normal';
+        player.body.setGravityY(player.gravity);
+        player.setBounce(player.bounceX, player.bounceY);
+        player.groundCollider.active = true;
+        player.setImmovable(false);
+        this.rocketCollider.active = false;
+        player.alpha = 1;
+        clearTimeout(this.intangibleTimer);
+        player.maxJumps = 1;
+        player.jumps = Math.min(player.jumps, 1);
+        clearTimeout(this.doubleJumpTimer);
+        clearTimeout(this.confusionTimer);
+    }
+
+    changeState(player, state)
+    {
+        switch(state)
+        {
+            case 'rocket':
+                player.state = 'rocket';
+                player.body.setGravityY(0);
+                player.setVelocityX(0);
+                player.setBounce(0);
+                player.groundCollider.active = false;
+                player.setImmovable(true);
+                player.setVelocityY(this.rocketSpeed);
+                this.rocketCollider.active = true;
+                break;
+            case 'intangible':
+                player.state = 'intangible';
+                player.alpha = 0.5;
+                break;
+            case 'doubleJump':
+                player.state = 'doubleJump';
+                player.maxJumps = 2;
+                player.jumps = 2;
+                break;
+            case 'freeze':
+                player.state = 'freeze';
+                player.body.setGravityY(0);
+                player.setVelocityX(0);
+                player.setVelocityY(0);
+                player.setBounce(0);
+                player.setImmovable(true);
+                break;
+            case 'launched':
+                player.state = 'launched';
+                player.body.setGravityY(0);
+                player.setBounce(1);
+                break;
+        }
     }
 }

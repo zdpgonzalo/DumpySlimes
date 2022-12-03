@@ -6,7 +6,7 @@ class PowerupBubble extends Phaser.Physics.Arcade.Sprite {
 
         // Atributos...
         //...para la configuración en la escena
-        this.size = 0.03; //Tamaño al que se escala el sprite
+        this.size = 0.03; // Tamaño al que se escala el sprite
         this.speedX = scene.CONFIG.gameWidth * 0.1; // Velocidad de la burbuja al moverse por la escena
         this.speedY = this.speedX * 2.5; // Velocidad de oscilación
         //...generales

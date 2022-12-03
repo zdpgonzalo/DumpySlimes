@@ -24,7 +24,7 @@ class LevelGenerator {
         this.levelSize = 2; // Tamaño del nivel
     }
 
-    generateLevel()
+    generateLevel() // Devuelve dos matrices (24, 24*levelSize), una con la información de las plataformas y otra con la de los objetos
     {
         let platformArray = [];
         let objectArray = [];
@@ -72,7 +72,7 @@ class LevelGenerator {
         let row = [];
 
         // Conversión de array a matriz
-        for (let i = 0; i < array.length; i++) {
+        for(let i = 0; i < array.length; i++) {
             row.push(array[i]);
             if(row.length == width)
             {
@@ -83,8 +83,8 @@ class LevelGenerator {
 
         // Cuando phaser carga un mapa desde un json interpreta el índice 0 como transparente, pero al cargarlo desde un array el transparente es -1, 
         // por lo que hay que restar 1 a todos los elementos del array
-        for (let y = 0; y < out.length; y++) {
-            for (let x = 0; x < width; x++) {
+        for(let y = 0; y < out.length; y++) {
+            for(let x = 0; x < width; x++) {
                 out[y][x] -= 1;
             }
         }
