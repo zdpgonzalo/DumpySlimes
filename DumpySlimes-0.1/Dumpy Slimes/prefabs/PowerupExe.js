@@ -169,10 +169,10 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
                         sprite = 'iconoHelado';
                         break;
                     case 'thief':
-                        sprite = 'iconoLadrón';
+                        sprite = 'iconoLadron';
                         break;
                     case 'confusion':
-                        sprite = 'iconoConfusión';
+                        sprite = 'iconoConfusion';
                         break;
                     case 'bombTrap':
                         sprite = 'iconoTrampaBomba';
@@ -184,7 +184,7 @@ class PowerupExe { //Clase auxiliar, solo sirve para separar el código
                         sprite = 'iconoOndaExpansiva';
                         break;
                 }
-                let item = player.scene.physics.add.sprite(target.x, target.y + 25, sprite).setScale(0.03);
+                let item = player.scene.physics.add.sprite(target.x, target.y + 25, sprite).setScale(0.01);
                 player.scene.tweens.add({
                     targets: [thief, item],
                     y: { value: '-=200', duration: 2000, ease: 'Power2' },

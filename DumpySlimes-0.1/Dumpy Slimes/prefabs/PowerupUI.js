@@ -18,8 +18,8 @@ class PowerupUI extends Phaser.GameObjects.Image {
         this.setScrollFactor(0,0);
 
         // Iconos de powerups
-        this.leftIcon = scene.add.image(this.width * this.scaleX * 0.25, this.height * this.scaleY * 0.5, 'none').setScale(0.04).setScrollFactor(0,0);
-        this.rightIcon = scene.add.image(this.width * this.scaleX * 0.75, this.height * this.scaleY * 0.5, 'none').setScale(0.04).setScrollFactor(0,0);
+        this.leftIcon = scene.add.image(this.width * this.scaleX * 0.25, this.height * this.scaleY * 0.5, 'none').setScale(0.15).setScrollFactor(0,0);
+        this.rightIcon = scene.add.image(this.width * this.scaleX * 0.75, this.height * this.scaleY * 0.5, 'none').setScale(0.15).setScrollFactor(0,0);
 
         // Renderizado de distintos powerups en cada cámara
         const originalRenderWebGL = this.renderWebGL;
@@ -52,10 +52,10 @@ class PowerupUI extends Phaser.GameObjects.Image {
                     this.leftIcon.setTexture('iconoHelado');
                     break;
                 case 'thief':
-                    this.leftIcon.setTexture('iconoLadrón');
+                    this.leftIcon.setTexture('iconoLadron');
                     break;
                 case 'confusion':
-                    this.leftIcon.setTexture('iconoConfusión');
+                    this.leftIcon.setTexture('iconoConfusion');
                     break;
                 case 'bombTrap':
                     this.leftIcon.setTexture('iconoTrampaBomba');
@@ -85,10 +85,10 @@ class PowerupUI extends Phaser.GameObjects.Image {
                     this.rightIcon.setTexture('iconoHelado');
                     break;
                 case 'thief':
-                    this.rightIcon.setTexture('iconoLadrón');
+                    this.rightIcon.setTexture('iconoLadron');
                     break;
                 case 'confusion':
-                    this.rightIcon.setTexture('iconoConfusión');
+                    this.rightIcon.setTexture('iconoConfusion');
                     break;
                 case 'bombTrap':
                     this.rightIcon.setTexture('iconoTrampaBomba');

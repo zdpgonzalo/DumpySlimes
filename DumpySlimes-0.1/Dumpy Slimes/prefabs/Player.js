@@ -57,8 +57,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         players.add(this);
 
         // Indicadores de salto
-        this.jumpIcon1 = scene.add.image(this.x - 400 * this.size, this.y - 400 * this.size, 'burbujaVerde').setScale(0.015);
-        this.jumpIcon2 = scene.add.image(this.x + 400 * this.size, this.y - 400 * this.size, 'burbujaVerde').setScale(0.015);
+        this.jumpIcon1 = scene.add.image(this.x - 400 * this.size, this.y - 400 * this.size, 'burbujaVerde').setScale(0.04);
+        this.jumpIcon2 = scene.add.image(this.x + 400 * this.size, this.y - 400 * this.size, 'burbujaVerde').setScale(0.04);
 
         // Colliders...
         //...entre jugadores
@@ -270,10 +270,10 @@ class Player extends Phaser.Physics.Arcade.Sprite {
                 sprite = 'iconoHelado';
                 break;
             case 'thief':
-                sprite = 'iconoLadrón';
+                sprite = 'iconoLadron';
                 break;
             case 'confusion':
-                sprite = 'iconoConfusión';
+                sprite = 'iconoConfusion';
                 break;
             case 'bombTrap':
                 sprite = 'iconoTrampaBomba';

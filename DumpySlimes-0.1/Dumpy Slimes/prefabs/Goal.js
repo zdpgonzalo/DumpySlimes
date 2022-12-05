@@ -2,11 +2,11 @@ class Goal extends Phaser.Physics.Arcade.Sprite {
     constructor(scene, x, y, players) 
     {
         // Constructor del padre
-        super(scene, x, y, 'meta');
+        super(scene, x, y, 'corona');
 
         // Atributos...
         //...para la configuración en la escena
-        this.size = 0.40; // Tamaño al que se escala el sprite
+        this.size = 0.12; // Tamaño al que se escala el sprite
         //...generales
         this.playerOrder = []; // Array que guarda el ordenen que los jugadores han llegado a la meta
         this.scene = scene;
@@ -18,7 +18,7 @@ class Goal extends Phaser.Physics.Arcade.Sprite {
         this.setOrigin(0, 0);
         this.setScale(this.size);
         this.refreshBody();
-        this.setCircle(scene.textures.get('meta').getSourceImage().width * 0.5);
+        this.setCircle(scene.textures.get('corona').getSourceImage().width * 0.5);
 
         // Colliders...
         //...entre jugadores y la meta

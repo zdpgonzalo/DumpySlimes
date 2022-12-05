@@ -20,7 +20,26 @@ class Preload extends Phaser.Scene
         this.load.setPath('assets');
         //...tilesheets
         this.load.image('tiles', 'tilesheets/Tilemap.png');
-        //...sprites generales
+        // Sprites...
+        //...iconoPowerup
+        this.load.image('iconoCohete', 'sprites/iconoPowerup_cohete.png');
+        this.load.image('iconoIntangible', 'sprites/iconoPowerup_intangible.png');
+        this.load.image('iconoDobleSalto', 'sprites/iconoPowerup_dobleSalto.png');
+        this.load.image('iconoHelado', 'sprites/iconoPowerup_helado.png');
+        this.load.image('iconoLadron', 'sprites/iconoPowerup_ladron.png');
+        this.load.image('iconoConfusion', 'sprites/iconoPowerup_confusion.png');
+        this.load.image('iconoTrampaBomba', 'sprites/iconoPowerup_trampaBomba.png');
+        this.load.image('iconoMisil', 'sprites/iconoPowerup_misil.png');
+        this.load.image('iconoOndaExpansiva', 'sprites/iconoPowerup_ondaExpansiva.png');
+        //...objetoNivel
+        this.load.image('burbujaDorada', 'sprites/objetoNivel_burbuja.png');
+        this.load.image('corona', 'sprites/objetoNivel_corona.png');
+        //...efectoJugador
+        this.load.image('burbujaVerde', 'sprites/efectoJugador_burbuja.png');
+        //...efectoPowerup
+        this.load.image('bombaDesactivada', 'sprites/efectoPowerup_bombaDesactivada.png');
+        this.load.image('bombaActivada', 'sprites/efectoPowerup_bombaActivada.png');
+        //...miscelaneo
         this.load.image('star', 'sprites/star.png');
         this.load.image('logo', 'sprites/logo.png');
         this.load.image('newGameButton', 'sprites/New_Game_Button.png');
@@ -29,21 +48,7 @@ class Preload extends Phaser.Scene
         this.load.image('settingsButtonDark', 'sprites/Settings_Button_Dark.png');
         this.load.image('interfaz', 'sprites/Panel.png');
         this.load.image('frozenEffect', 'sprites/Frozen_Effect.png');
-        this.load.image('meta', 'sprites/Meta.png');
-        this.load.image('bomba1', 'sprites/PowerUp_EfectoBomba1.png');
-        this.load.image('bomba2', 'sprites/PowerUp_EfectoBomba2.png');
-        this.load.image('iconoCohete', 'sprites/PowerUp_Cohete.png');
-        this.load.image('iconoIntangible', 'sprites/PowerUp_Intangible.png');
-        this.load.image('iconoDobleSalto', 'sprites/PowerUp_DobleSalto.png');
-        this.load.image('iconoHelado', 'sprites/PowerUp_Helado.png');
-        this.load.image('iconoLadrón', 'sprites/PowerUp_Ladrón.png');
-        this.load.image('iconoConfusión', 'sprites/PowerUp_Confusión.png');
-        this.load.image('iconoTrampaBomba', 'sprites/PowerUp_Bomba.png');
-        this.load.image('iconoMisil', 'sprites/PowerUp_Misil.png');
-        this.load.image('iconoOndaExpansiva', 'sprites/PowerUp_OndaExpansiva.png');
         this.load.image('none', 'sprites/transparentImage.png');
-        this.load.image('burbujaDorada', 'sprites/Burbuja Dorada Solida.png');
-        this.load.image('burbujaVerde', 'sprites/Burbuja Verde Solida.png');
         this.load.image('ladrón', 'sprites/Efecto-Ladrón.png');
         this.load.image('interrogación', 'sprites/Efecto_Confusión.png');
         this.load.image('niebla', 'sprites/Efecto_Intangible.png');

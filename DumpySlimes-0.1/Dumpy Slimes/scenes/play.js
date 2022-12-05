@@ -134,8 +134,7 @@ class Play extends Phaser.Scene
         ).setOrigin(0.5);
         this.timedEvent = this.time.addEvent({ delay: 1000, callback: this.onEvent, callbackScope: this, loop: true });
 
-        this.player1.powerups.push('freeze');
-        this.player1.powerups.push('freeze');
+        //this.player1.powerups.push('rocket');
     }
 
     onEvent() // Lógica de la cuenta atrás
