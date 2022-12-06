@@ -22,9 +22,7 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         this.drag = 4 * this.size; // Fuerza de rozamiento en el eje x
         this.maxJumps = 1; // Saltos máximos consecutivos
         this.jumps = 1; // Saltos disponibles en cada momento
-        this.jumpTimer; // Controla el tiempo que dura el salto
         this.jumpForce = -6000 * this.size; // Fuerza del salto
-        this.jumpDuration = 800; // Máxima duración que el jugador puede mantener presionada la tecla de salto para saltar más alto
         this.jumpGravityReductionFactor = 0.5; // Número por el que se modifica la gravedad al mantener pulsado el botón de salto
         this.bouncePlayer = 2.5; // Fuerza de rebote al chocar con otros jugadores, afecta a este jugador y no a los otros
         //...para el funcionamiento de los powerups
@@ -43,6 +41,8 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         //...referencias a elementos de la escena
         this.group = players; // Grupo de la escena al que pertenece el jugador
         this.ground = ground; // Capa que almacena las plataformas
+
+        this.music = this.scene.sound.add('salto');
 
         // Configuración en la escena
         scene.sys.updateList.add(this);
@@ -66,16 +66,14 @@ class Player extends Phaser.Physics.Arcade.Sprite {
             // Este código es para que los jugadores reboten más entre ellos y que pùedan saltar de nuevo tras hacerlo, y resetea el salto
             player1.setVelocity(player1.body.velocity.x * player1.bouncePlayer, player1.body.velocity.y * player1.bouncePlayer);
             player1.jumps = player1.maxJumps;
-            player1.jumpTimer -= player1.jumpDuration;
             player2.setVelocity(player2.body.velocity.x * player2.bouncePlayer, player2.body.velocity.y * player2.bouncePlayer);
             player2.jumps = player2.maxJumps;
-            player2.jumpTimer -= player2.jumpDuration;
         });
         //...entre el jugador y las plataformas
+        let that = this;
         this.groundCollider = scene.physics.add.collider(this, ground, function(player, ground) {
             if(player.body.blocked.up)
             {
-                player.body.setGravityY(player.gravity);
                 player.setVelocityY(0);
             }
         });
@@ -218,7 +216,6 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         //Acelerar la caida
         if(down.isDown)
         {
-            this.setBounce(0);
             if(this.body.velocity.y < this.maxMovementSpeed)
             {
                 this.body.velocity.y += this.fallingSpeed * delta;
@@ -232,14 +229,25 @@ class Player extends Phaser.Physics.Arcade.Sprite {
         // Salto
         if(Phaser.Input.Keyboard.JustDown(up) && this.jumps > 0)
         {
+            this.music.setVolume(1);
+            this.music.play();
             this.jumps--;
             this.setVelocityY(this.jumpForce);
             this.body.setGravityY(this.gravity * this.jumpGravityReductionFactor);
-            this.jumpTimer = time;
         }
-        if(Phaser.Input.Keyboard.JustUp(up) || (time - this.jumpTimer) > this.jumpDuration || this.body.velocity.y > 0)
+        if((Phaser.Input.Keyboard.JustUp(up) || this.body.velocity.y > 0.01) && this.body.gravity.y != this.gravity)
         {
             this.body.setGravityY(this.gravity);
+            this.scene.tweens.add({
+                targets:  this.music,
+                volume:   0,
+                duration: 200
+            });
+            let that = this;
+            setTimeout(function()
+            {
+                that.music.stop();
+            }, 200);
         }
 
         // Usar powerup
