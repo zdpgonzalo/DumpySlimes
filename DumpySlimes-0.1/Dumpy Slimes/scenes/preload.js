@@ -100,6 +100,10 @@ class Preload extends Phaser.Scene
         this.load.json('bloque29', 'tilemaps/bloque29.json');
         this.load.json('bloque30', 'tilemaps/bloque30.json');
         this.load.json('base', 'tilemaps/base.json');
+        // Sonidos
+        //this.load.audio('salto', 'sounds/salto.ogg');
+        this.load.audio('salto', 'sounds/cartoon-jump-6462.mp3');
+        //this.load.audio('salto', 'sounds/salto.mp3');
     }
 
     create()
