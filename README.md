@@ -65,6 +65,8 @@ Pantalla que muestra la puntuación de la ronda de cada uno de los jugadores de 
 Para el correcto funcionamiento de websockets, se han creado varias clases en
 Spring para sincronizar las partidas de dos jugadores:
 </p>
+
+<ul>
 <p>
   ● Account: usada para manejar a los jugadores conectados al servidor. Los atributos
 más importantes son el id de la partida (Game) a la que pertenecen y la sesión de
@@ -80,13 +82,20 @@ WebSocketsEchoHandler.
 puede ser:
 </p>  
 <ul>
-    ○ url/games: devuelve la lista de partidas que tiene WebSocketsEchoHandler.
+    <p>
+    ○ <p>url/games: devuelve la lista de partidas que tiene WebSocketsEchoHandler.
+    </p> 
+    <p>
     ○ url/games/{id}: devuelve el tamaño de la lista de jugadores de la partida con
 ese id.
+  </p> 
 </ul>
+<p>
 ● WebSocketsEchoHandler: maneja los mensajes recibidos de las distintas sesiones
 de WebSockets. Su funcionamiento se explicará en parte en el apartado del
-protocolo
+protocolo.
+</p>
+</ul>
 
 ## Protocolo
 <p>
