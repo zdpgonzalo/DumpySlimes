@@ -107,7 +107,8 @@ WebSocketsEchoHandler. Si no hay ninguna partida abierta a la que le falten juga
 crea una nueva partida (Game); si no es el caso, une al jugador asociado con dicha
 conexión a la partida abierta.
 <p>
-Una vez un jugador se ha unido a una partida, WebSocketsEchoHandler envía un
+
+<p>Una vez un jugador se ha unido a una partida, WebSocketsEchoHandler envía un
 mensaje para informar a la escena Play cuál es el Slime que controla ese jugador (Rosa o
 Azul). Esto se consigue debido a que todos los mensajes que reciben los clientes tienen un
 atributo que hace referencia a una función implementada en Play, y al recibir un mensaje, el
