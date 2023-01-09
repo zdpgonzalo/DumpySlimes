@@ -31,7 +31,7 @@ Una vez iniciado el juego, se enseña el menú del juego, desde el cual, se acce
 
 ## Diagrama de clases
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/211353854-3e1b1308-a80d-4cdb-9824-69c4e2258aed.jpeg" width="400" heigth="400"/>
+  <img src="https://user-images.githubusercontent.com/116154873/211353854-3e1b1308-a80d-4cdb-9824-69c4e2258aed.jpeg" width="700" heigth="700"/>
 </p>
 
 ## Menú principal
