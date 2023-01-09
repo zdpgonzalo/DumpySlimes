@@ -60,3 +60,59 @@ En la pantalla de juego se desarrolla la partida en la cual pueden participar do
 </p>
 Pantalla que muestra la puntuación de la ronda de cada uno de los jugadores de la partida.
 
+## Protocolo de WebSockets
+Para el correcto funcionamiento de websockets, se han creado varias clases en
+Spring para sincronizar las partidas de dos jugadores:
+● Account: usada para manejar a los jugadores conectados al servidor. Los atributos
+más importantes son el id de la partida (Game) a la que pertenecen y la sesión de
+WebSockets a la que corresponden
+● Game: esta clase tiene un id para identificar a cada partida y una lista jugadores,
+cuyo número máximo es 2, aunque este tamaño máximo está controlado por el
+WebSocketsEchoHandler.
+● GamesController: este controller configura la petición get de la clase Game, que
+puede ser:
+○ url/games: devuelve la lista de partidas que tiene WebSocketsEchoHandler.
+○ url/games/{id}: devuelve el tamaño de la lista de jugadores de la partida con
+ese id.
+● WebSocketsEchoHandler: maneja los mensajes recibidos de las distintas sesiones
+de WebSockets. Su funcionamiento se explicará en parte en el apartado del
+protocolo
+
+## Protocolo
+La comunicación entre clientes y el servidor usando WebSockets tiene lugar sólo en
+la escena Play del juego.
+Al abrir la escena, se inicia la conexión con WebSockets, detectada por
+WebSocketsEchoHandler. Si no hay ninguna partida abierta a la que le falten jugadores, se
+crea una nueva partida (Game); si no es el caso, une al jugador asociado con dicha
+conexión a la partida abierta.
+Una vez un jugador se ha unido a una partida, WebSocketsEchoHandler envía un
+mensaje para informar a la escena Play cuál es el Slime que controla ese jugador (Rosa o
+Azul). Esto se consigue debido a que todos los mensajes que reciben los clientes tienen un
+atributo que hace referencia a una función implementada en Play, y al recibir un mensaje, el
+cliente ejecuta la función asociada. En el caso del mensaje enviado cuando un jugador es
+añadido a una partida, la función es setPlayer.
+Inmediatamente, después de saber que Slime controla, el cliente empieza a mandar
+mensajes por el Socket con el estado de dicho Slime (posición, velocidad, sprite, etc), y al
+recibirlo, el handler se lo envía al resto de sesiones cuyo Game sea el mismo que el
+emisario. Estos mensajes se mandan aunque el emisario sea el único jugador dentro de la
+partida
+Mientras se ejecuta la función setPlayer, el juego comprueba constantemente si hay
+2 jugadores en la partida, para ello, envía las peticiones Get url/games/{id} mencionadas
+anteriormente. Mientras falten jugadores, la partida no comenzará.
+En cuanto un segundo jugador se une al Game, el juego comienza para ambos. Los
+mensajes con la información de los Slimes que envía cada cliente son recibidos por el otro e
+invocan su función Update, lo que permite sincronizar ambos clientes para que todos los
+Slimes se actualicen según las acciones de los distintos jugadores.
+Durante el transcurso de la partida, si un jugador usa un Power Up que afecte al
+otro, se manda un mensaje por el Socket, con un funcionamiento similar al anterior, aunque
+en vez de invocar a la función Update del otro cliente invoca una función determinada según
+el Power Up usado.
+Finalmente, cuando un jugador llega a la meta, manda dos mensajes.
+El primero sirve para actualizar la posición del Slime que ha llegado a la meta en el
+otro cliente. El segundo mensaje avisa a WebSocketsEchoHandler de que que la partida ha
+terminado y que puede ser eliminada de la lista de Game.
+Tras esto, ambos clientes pasan a la escena Winner, donde se muestra al jugador
+vencedor. Esta escena carece de cualquier funcionalidad de WebSockets, por lo que ambos
+jugadores pueden volver al menú principal y volver a buscar partida, en cuyo caso se crean
+sesiones de WebSocket nuevas, ya que las antiguas no se han eliminado.
+
