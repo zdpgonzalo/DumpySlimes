@@ -36,20 +36,27 @@ Una vez iniciado el juego, se enseña el menú del juego, desde el cual, se acce
 
 ## Menú principal
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/204661097-f5051b96-fcb6-447f-b068-002064152856.png" width="700" heigth="700"/>
+  <img src="https://user-images.githubusercontent.com/116154873/211355132-d1d5a67c-9fe5-4f7e-8eaf-f607e80333b2.png" width="700" heigth="700"/>
 
 </p>
 En el menú principal aparece el logo del juego, el botón "New Game" que inicia una nueva partida y los controles de cada jugador.
 
+## Chat
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/116154873/211356210-9ff2f1c6-c5de-41ec-9342-bd22685d7f78.png" width="700" heigth="700"/>
+</p>
+
+Pantalla de chat donde los usuarios pueden enviar mensajes.
+
 ## Pantalla de juego
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/204654571-a57bf616-12a6-42f6-8bc5-459ec433bd71.png" width="700" heigth="700"/>
+  <img src="https://user-images.githubusercontent.com/116154873/211355473-ef3e77b4-a7c6-405c-bccd-db2a12e2e1a9.png" width="700" heigth="700"/>
 </p>
 En la pantalla de juego se desarrolla la partida en la cual pueden participar dos jugadores y está compuesta de 3 rondas. La pantalla de juego está dividida en dos para mostrar el mismo escenario para cada jugador, de esta manera cada uno puede ir a su ritmo. Las burbujas son power-ups que otorgan habilidades especiales a los jugadores si estos las cogen. La corona es la meta y el primer jugador que la alcance gana la ronda. El jugador con más rondas logradas es el vencedor.
 
 ## Pantalla de ranking
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/204654916-87d38cbc-fb05-4104-bba2-0772d0c7a1c5.PNG" width="700" heigth="700"/>
+  <img src="https://user-images.githubusercontent.com/116154873/211355692-ca50a3e9-c4e7-4bfb-a4f9-07945155ec70.png" width="700" heigth="700"/>
 </p>
 Pantalla que muestra la puntuación de la ronda de cada uno de los jugadores de la partida.
 
