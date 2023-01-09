@@ -60,27 +60,39 @@ En la pantalla de juego se desarrolla la partida en la cual pueden participar do
 </p>
 Pantalla que muestra la puntuación de la ronda de cada uno de los jugadores de la partida.
 
-## Protocolo de WebSockets
+## Descripción de los Scripts de Spring
+<p>
 Para el correcto funcionamiento de websockets, se han creado varias clases en
 Spring para sincronizar las partidas de dos jugadores:
-● Account: usada para manejar a los jugadores conectados al servidor. Los atributos
+</p>
+<p>
+  ● Account: usada para manejar a los jugadores conectados al servidor. Los atributos
 más importantes son el id de la partida (Game) a la que pertenecen y la sesión de
 WebSockets a la que corresponden
-● Game: esta clase tiene un id para identificar a cada partida y una lista jugadores,
+</p>  
+<p>
+  ● Game: esta clase tiene un id para identificar a cada partida y una lista jugadores,
 cuyo número máximo es 2, aunque este tamaño máximo está controlado por el
 WebSocketsEchoHandler.
-● GamesController: este controller configura la petición get de la clase Game, que
+</p>
+<p>
+  ● GamesController: este controller configura la petición get de la clase Game, que
 puede ser:
-○ url/games: devuelve la lista de partidas que tiene WebSocketsEchoHandler.
-○ url/games/{id}: devuelve el tamaño de la lista de jugadores de la partida con
+</p>  
+<ul>
+    ○ url/games: devuelve la lista de partidas que tiene WebSocketsEchoHandler.
+    ○ url/games/{id}: devuelve el tamaño de la lista de jugadores de la partida con
 ese id.
+</ul>
 ● WebSocketsEchoHandler: maneja los mensajes recibidos de las distintas sesiones
 de WebSockets. Su funcionamiento se explicará en parte en el apartado del
 protocolo
 
 ## Protocolo
+<p>
 La comunicación entre clientes y el servidor usando WebSockets tiene lugar sólo en
 la escena Play del juego.
+</p>
 Al abrir la escena, se inicia la conexión con WebSockets, detectada por
 WebSocketsEchoHandler. Si no hay ninguna partida abierta a la que le falten jugadores, se
 crea una nueva partida (Game); si no es el caso, une al jugador asociado con dicha
