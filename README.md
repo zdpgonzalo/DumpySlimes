@@ -68,17 +68,17 @@ Spring para sincronizar las partidas de dos jugadores:
 
 <ul>
 <p>
-  ● Account: usada para manejar a los jugadores conectados al servidor. Los atributos
+  ● <b>Account:</b> usada para manejar a los jugadores conectados al servidor. Los atributos
 más importantes son el id de la partida (Game) a la que pertenecen y la sesión de
 WebSockets a la que corresponden
 </p>  
 <p>
-  ● Game: esta clase tiene un id para identificar a cada partida y una lista jugadores,
+  ● <b>Game:</b> esta clase tiene un id para identificar a cada partida y una lista jugadores,
 cuyo número máximo es 2, aunque este tamaño máximo está controlado por el
 WebSocketsEchoHandler.
 </p>
 <p>
-  ● GamesController: este controller configura la petición get de la clase Game, que
+  ● <b>GamesController:</b> este controller configura la petición get de la clase Game, que
 puede ser:
 </p>  
 <ul>
@@ -91,7 +91,7 @@ ese id.
   </p> 
 </ul>
 <p>
-● WebSocketsEchoHandler: maneja los mensajes recibidos de las distintas sesiones
+● <b>WebSocketsEchoHandler:</b> maneja los mensajes recibidos de las distintas sesiones
 de WebSockets. Su funcionamiento se explicará en parte en el apartado del
 protocolo.
 </p>
