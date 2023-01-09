@@ -60,9 +60,3 @@ En la pantalla de juego se desarrolla la partida en la cual pueden participar do
 </p>
 Pantalla que muestra la puntuación de la ronda de cada uno de los jugadores de la partida.
 
-## Pantalla de victoria
-<p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/204654767-6e5271f6-42e5-45fe-b056-041f8d2e3103.PNG" width="700" heigth="700"/>
-</p>
-Pantalla que muestra el ganador de la partida
-
