@@ -24,7 +24,7 @@ El estilo del juego es de tipo Cartoon, con colores suaves y formas redondeadas.
 
 ## Diagrama de navegación
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/211354153-d06018a8-5834-44e7-8d52-87c2440ac7a2.png" width="400" heigth="400"/>
+  <img src="https://github.com/zdpgonzalo/DumpySlimes/assets/86959459/fb4a9878-6e4a-497d-a599-2866cfbc35f0"/>
 </p>
 Una vez iniciado el juego, se enseña el menú del juego, desde el cual, se accede a un lobby si la partida es online, y sino se inicia directamente la partida. En cada partida hay varias rondas, donde los jugadores han de pasarse los niveles, y tras la finalización de estos, se accede a un ranking donde se muestran los puntos de cada jugador. Si un jugador consigue todos los puntos necesarios, se muestra la pantalla de victoria.<br/>
 
@@ -67,4 +67,4 @@ Pantalla que muestra la puntuación de la ronda de cada uno de los jugadores de 
 Pantalla que muestra el ganador del juego.
 
 ## Instrucciones para ejecutar el .jar
-Instrucciones
+Para ejecutar el .jar hay que abrir el cmd y escribir
