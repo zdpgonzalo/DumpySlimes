@@ -59,3 +59,9 @@ En la pantalla de juego se desarrolla la partida en la cual pueden participar do
   <img src="https://user-images.githubusercontent.com/116154873/211355692-ca50a3e9-c4e7-4bfb-a4f9-07945155ec70.png" width="700" heigth="700"/>
 </p>
 Pantalla que muestra la puntuación de la ronda de cada uno de los jugadores de la partida.
+
+## Pantalla de ganador
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/116154873/211355692-ca50a3e9-c4e7-4bfb-a4f9-07945155ec70.png" width="700" heigth="700"/>
+</p>
+Pantalla que muestra el ganador del juego.
