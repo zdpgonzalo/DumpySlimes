@@ -31,40 +31,43 @@ Una vez iniciado el juego, se enseña el menú del juego, desde el cual, se acce
 
 ## Diagrama de clases
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/211353854-3e1b1308-a80d-4cdb-9824-69c4e2258aed.jpeg" width="700" heigth="700"/>
+  <img src="https://github.com/zdpgonzalo/DumpySlimes/assets/86959459/ea4648a4-64fc-46b7-baea-683aee7452d1"/>
 </p>
 
 ## Menú principal
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/211355132-d1d5a67c-9fe5-4f7e-8eaf-f607e80333b2.png" width="700" heigth="700"/>
+  <img src="https://github.com/zdpgonzalo/DumpySlimes/assets/86959459/dd1d1f6e-f7dc-4b4b-89a0-9fe7d8883b0b"/>
 
 </p>
 En el menú principal aparece el logo del juego, el botón "New Game" que inicia una nueva partida, el botón "Chat" para iniciar sesión y entrar en el lobby y los controles de cada jugador.
 
 ## Lobby
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/211356210-9ff2f1c6-c5de-41ec-9342-bd22685d7f78.png" width="700" heigth="700"/>
+  <img src="https://github.com/zdpgonzalo/DumpySlimes/assets/86959459/f8e243ef-3e54-48e8-8f36-531c3d4304d4" width="700" heigth="700"/>
 </p>
 
 Pantalla de lobby donde hay 2 secciones, una para el chat que muestra el historial de mensajes y los jugadores conectados y desconectados, y otra sección que muestra las cuentas activas en cada momento.
 
 ## Pantalla de juego
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/211355473-ef3e77b4-a7c6-405c-bccd-db2a12e2e1a9.png" width="700" heigth="700"/>
+  <img src="https://github.com/zdpgonzalo/DumpySlimes/assets/86959459/c4efed10-cc3f-4b4f-98b0-849f0c81df07" width="700" heigth="700"/>
 </p>
 En la pantalla de juego se desarrolla la partida en la cual pueden participar dos jugadores y está compuesta de 3 rondas. La pantalla de juego está dividida en dos para mostrar el mismo escenario para cada jugador, de esta manera cada uno puede ir a su ritmo. Las burbujas son power-ups que otorgan habilidades especiales a los jugadores si estos las cogen. La corona es la meta y el primer jugador que la alcance gana la ronda. El jugador con más rondas logradas es el vencedor.
 
 ## Pantalla de ranking
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/211355692-ca50a3e9-c4e7-4bfb-a4f9-07945155ec70.png" width="700" heigth="700"/>
+  <img src="https://github.com/zdpgonzalo/DumpySlimes/assets/86959459/aa11bc7b-2642-4161-93c9-4741ace94247" width="700" heigth="700"/>
 </p>
 Pantalla que muestra la puntuación de la ronda de cada uno de los jugadores de la partida.
 
 ## Pantalla de ganador
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/116154873/211355692-ca50a3e9-c4e7-4bfb-a4f9-07945155ec70.png" width="700" heigth="700"/>
+  <img src="https://github.com/zdpgonzalo/DumpySlimes/assets/86959459/f2dd308d-29d5-46fa-ac1c-65249d64bb68" width="700" heigth="700"/>
 </p>
 Pantalla que muestra el ganador del juego.
 
 ## Instrucciones para ejecutar el .jar
-Para ejecutar el .jar hay que abrir el cmd y escribir
+Para ejecutar el .jar hay que abrir el cmd y escribir el comando -jar seguido de la URL del archivo, como en la siguiente imagen:
+<p align="center">
+  <img src="https://github.com/zdpgonzalo/DumpySlimes/assets/86959459/4bfbfa5c-9411-4cbf-9d8a-c3e431fef946" width="700" heigth="700"/>
+</p>
