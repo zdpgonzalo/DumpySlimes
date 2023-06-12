@@ -67,7 +67,7 @@ Pantalla que muestra la puntuación de la ronda de cada uno de los jugadores de 
 Pantalla que muestra el ganador del juego.
 
 ## Instrucciones para ejecutar el .jar
-Para ejecutar el .jar hay que abrir el cmd y escribir el comando -jar seguido de la URL del archivo, como en la siguiente imagen:
+Para ejecutar el .jar hay que abrir el cmd y escribir el comando cd seguido de la ruta donde está el .jar y dar a enter, tras esto hay que escribir java -jar seguido del nombre del archivo .jar, como en la siguiente imagen:
 <p align="center">
-  <img src="https://github.com/zdpgonzalo/DumpySlimes/assets/86959459/4bfbfa5c-9411-4cbf-9d8a-c3e431fef946" width="700" heigth="700"/>
+  <img src="https://github.com/zdpgonzalo/DumpySlimes/assets/86959459/dd2a9305-49e0-411b-aab5-801c2cb7e02b" width="700" heigth="700"/>
 </p>
